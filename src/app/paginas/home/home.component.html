@@ -1,0 +1,48 @@
+    <!--Login-->
+    <section id="login">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 mx-auto">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="text-center">
+                                Acceso Usuarios
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            <form novalidate (ngSubmit)="onLogin()" [formGroup]="loginForm">
+                                <div class="form-group">
+                                    <label for="email">
+                                        Email
+                                    </label>
+                                    <input type="email" class="form-control" formControlName="email" [class]="isValidField('email')">
+                                    <div class="invalid-feedback">
+                                        <span *ngIf="loginForm.get('email').errors?.pattern">
+                                            Introduzca un email válido
+                                        </span>
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">
+                                       Password
+                                    </label>
+                                    <input type="password" class="form-control" formControlName="password" [class]="isValidField('password')">
+                                    <div class="invalid-feedback">
+                                        <span *ngIf="loginForm.get('password').errors?.required">
+                                            Complete este campo
+                                        </span>
+                                        <span *ngIf="loginForm.get('password').errors?.minlength">
+                                            La contraseña debe tener {{loginForm.get("password").errors?.minlength?.requiredLength}} carácteres como mínimo.
+                                        </span>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-user"></i> Ingresar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
