@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { AuthService} from "../../servicios/auth.service";
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -8,7 +8,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
   registerForm:FormGroup;
-  constructor(private fb:FormBuilder) { }
+  public email: string = "";
+  public password: string = "";
+  constructor(private fb:FormBuilder,private authService: AuthService) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -25,12 +27,10 @@ export class RegisterComponent implements OnInit {
   }
 
   onRegister(){
-    if(this.registerForm.valid){
-      console.log(this.registerForm.value)
-    }
-    else{
-      console.log("not valid")
-    }
+    this.authService.registerUser(this.email,this.password)
+    .then((res)=>{
+      alert('usuario registrado')
+    }).catch(err => console.log("err",err.message));
   }
 
   isValidField(campo:string):string{

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { AuthService} from "../../servicios/auth.service";
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -8,7 +8,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class HomeComponent implements OnInit {
   loginForm: FormGroup;
-  constructor(private fb: FormBuilder) { }
+  public email:string = "";
+  public password: string = "";
+  constructor(private fb: FormBuilder, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -20,11 +22,10 @@ export class HomeComponent implements OnInit {
     })
   }
   onLogin():void{
-    if(this.loginForm.valid){
-      console.log(this.loginForm.value)
-    }else{
-      console.log("not valid")
-    }
+    this.authService.loginEmailUser(this.email,this.password)
+    .then((res) =>{
+      alert("logueado")
+    }).catch(err => console.log("err",err.message));
   }
   isValidField(campo:string):string{
     const validatedField = this.loginForm.get(campo);
