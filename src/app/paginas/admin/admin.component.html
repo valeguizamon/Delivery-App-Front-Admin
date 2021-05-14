@@ -1,0 +1,78 @@
+<div class="container-fuild mt-5">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header bg-dark ">
+                    <h4 class="text-white text-center">Menú Principal</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        <li class="list-group-item list-group-item-secondary d-flex">
+                            <a [routerLink]="['/admin/pedidos']" class="text-dark  mx-auto">Pedidos</a>
+                        </li>
+                        <li class="list-group-item list-group-item-secondary d-flex">
+                            <a [routerLink]="['/admin/usuarios']" class="text-dark  mx-auto">Usuarios</a>
+                        </li>
+
+                        <li class="list-group-item list-group-item-secondary d-flex">
+                            <a [routerLink]="['/admin/insumos']" class="text-dark  mx-auto">Insumos</a>
+                        </li>
+                        
+                        <li class="list-group-item list-group-item-secondary d-flex">
+                            <a [routerLink]="['/admin/manufacturados']" class="text-dark  mx-auto">Manufacturados</a>
+                        </li>
+                       
+                    </ul>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header bg-dark">
+                    <h4 class="text-center text-white">
+                        General
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        <li class="list-group-item list-group-item-secondary d-flex">
+                            <a [routerLink]="['/admin/rubros']" class="text-dark mx-auto">
+                                Rubros
+                            </a>
+                        </li>
+                        <li class="list-group-item list-group-item-secondary d-flex">
+                            <a href="#" class="text-dark mx-auto">
+                                Configuración
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header bg-dark">
+                    <h4 class="text-center text-white">
+                        Reportes
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <li class="list-group-item list-group-item-secondary d-flex">
+                        <a href="#" class="text-dark mx-auto">
+                            Reporte1
+                        </a>
+                    </li>
+                    <li class="list-group-item list-group-item-secondary d-flex">
+                        <a href="#" class="text-dark mx-auto">
+                            Reporte2
+                        </a>
+                    </li>
+                    <li class="list-group-item list-group-item-secondary d-flex">
+                        <a href="#" class="text-dark mx-auto">
+                            Reporte3
+                        </a>
+                    </li>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

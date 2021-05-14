@@ -1,0 +1,71 @@
+<div class="container-fluid">
+    <div class="row">
+        <!--Tabla Rubros Generales-->
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-dark">
+                    <h5 class="text-center text-white">Rubros Generales</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead class="bg-info">
+                            <tr>
+                                <th>#</th>
+                                <th>Denominacion</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor = "let rubro of generales;index as ind">
+                                <th scope="row">{{(ind+1)}}</th>
+                                <td>{{rubro.denominacion}}</td>
+                                <td>
+                                    <button class="btn btn-warning" data-toggle="modal" data-target="#modalRubroGen" (click)="preUpdateRubro(rubro,'general')"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-danger" (click)="onDelete(rubro._id,'general')"><i class="fas fa-trash-alt"></i></button>
+                                </td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+                <button class="btn btn-success" data-toggle="modal" data-target="#modalRubroGen"  >Agregar <i class="fas fa-plus"></i></button>
+            </div>
+        </div>
+
+        <!--Tabla Rubro Articulos-->
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-dark ">
+                    <h5 class="text-white text-center">Rubros Artículos</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead class="bg-info">
+                            <tr>
+                                <th>#</th>
+                                <th>Denominación</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor = "let rubro of articulos; index as ind">
+                                <td>{{(ind+1)}}</td>
+                                <td>{{rubro.denominacion}}</td>
+                                <td>
+                                    <button class="btn btn-warning" data-toggle="modal" data-target="#modalRubroArt" (click)="preUpdateRubro(rubro,'articulo')"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-danger" (click)="onDelete(rubro._id,'articulo')"><i class="fas fa-trash-alt"></i></button>
+                                </td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+                <button class="btn btn-success" data-toggle="modal" data-target="#modalRubroArt">Agregar <i class="fas fa-plus"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+<app-modalrubrogen (actualizar)="onActualizar($event)"></app-modalrubrogen>
+<app-modalrubroart (actualizar)="onActualizar($event)"></app-modalrubroart>

@@ -1,0 +1,34 @@
+<div class="modal fade" id="modalRubroGen" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <h5 class="bg-info text-white text-center">Rubros Generales</h5>
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    {{!this.servicio.selectedRubro._id?'Nuevo Rubro':'Modificar Rubro'}}
+                </h5>
+                <button #btnClose type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="resetForm()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form  #formRubro ="ngForm" (ngSubmit) = "onSaveRubro(formRubro)">
+                    <input type="hidden" name="id" [(ngModel)] = "this.servicio.selectedRubro._id">
+                    <div class="form-group">
+                        <label for="denominacion">Denominación:</label>
+                        <input type="text" class="form-control" name="denominacion" [(ngModel)] = "this.servicio.selectedRubro.denominacion">
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-dismiss="modal">
+                            Cerrar
+                        </button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+
+
+
+</div>

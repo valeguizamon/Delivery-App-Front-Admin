@@ -11,18 +11,15 @@ import { AngularFirestore} from '@angular/fire/firestore';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { AngularFireDatabaseModule} from '@angular/fire/database';
-import { UsuariosComponent } from './paginas/usuarios/usuarios.component';
-import { PedidosComponent } from './paginas/pedidos/pedidos.component';
-import { RubrosComponent } from './paginas/rubros/rubros.component';
 import { HttpClientModule} from "@angular/common/http";
-import { ModalrubrogenComponent } from './componentes/modales/modalrubrogen/modalrubrogen.component';
-import { ModalrubrogenModule } from './componentes/modales/modalrubrogen/modalrubrogen.module'
 import { FormsModule } from '@angular/forms';
+
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    
    
     
   ],
@@ -35,7 +32,7 @@ import { FormsModule } from '@angular/forms';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
     HttpClientModule,
-    ModalrubrogenModule
+    
   ],
   providers: [AngularFirestore],
   bootstrap: [AppComponent]

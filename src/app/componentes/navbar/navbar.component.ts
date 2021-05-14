@@ -26,8 +26,9 @@ export class NavbarComponent implements OnInit {
   }
 
   logOut(){
+    console.log("saliendo")
     this.authService.logOut()
-    this.router.navigate[('/')]
+    this.router.navigate(['/home'])
 
   }
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService} from "../../servicios/auth.service";
 @Component({
   selector: 'app-home',
@@ -10,7 +11,7 @@ export class HomeComponent implements OnInit {
   loginForm: FormGroup;
   public email:string = "";
   public password: string = "";
-  constructor(private fb: FormBuilder, private authService: AuthService) { }
+  constructor(private fb: FormBuilder, private authService: AuthService,private router: Router) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -25,6 +26,7 @@ export class HomeComponent implements OnInit {
     this.authService.loginEmailUser(this.email,this.password)
     .then((res) =>{
       alert("logueado")
+      this.router.navigate(['/panel'])
     }).catch(err => console.log("err",err.message));
   }
   isValidField(campo:string):string{

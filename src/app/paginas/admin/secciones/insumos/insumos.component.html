@@ -1,0 +1,139 @@
+<!--Contenido y tabla con datos-->
+
+<div class="container fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mt-3">
+                <div class="card-header bg-info">
+                    <h4 class="text-white text-center">
+                        Artículos de Insumo
+                    </h4>
+                </div>
+                <div class="card-body" *ngIf="insumos;else noItems">
+                    <table class="table table-striped" >
+                        
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Denominación</th>
+                                <th>Costo</th>
+                                <th>Precio</th>
+                                <th>Stock</th>
+                                <th>Mínimo</th>
+                                <th>Unidad</th>
+                                <th>Insumo</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor = "let insumo of insumos;index as ind">
+                                <th scope="row">{{(ind+1)}}</th>
+                                <td>{{insumo.denominacion}}</td>
+                                <td>${{insumo.precioCompra}}</td>
+                                <td>${{insumo.precioVenta}}</td>
+                                <td>{{insumo.stockActual}}</td>
+                                <td>{{insumo.stockMinimo}}</td>
+                                <td>{{insumo.unidadMedida}}</td>
+                                <td>{{insumo.esInsumo==1?'Si':'No'}}</td>
+                                <td>
+                                    <button class="btn btn-warning" data-toggle="modal" data-target="#modalInsumo" (click)="preUpdateInsumo(insumo)"><i class="fas fa-edit"></i></button>
+
+                                    <button class="btn btn-danger" (click)="onDelete(insumo._id)"><i class="fas fa-trash-alt"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>                      
+                    </table>
+                    <button class="btn btn-success btn-lg d-block w-50 mx-auto" data-toggle="modal" data-target="#modalInsumo">
+                        <span>Nuevo Artículo</span>
+                    </button>
+                </div>
+                <ng-template #noItems>
+                    <div class="card-body">
+                        <h4 class="text-center">Ups..No hay items agregados aún..</h4>
+                        <br>
+                        <button class="d-block btn  btn-lg mx-auto" data-toggle="modal" data-target="#modalInsumo">
+                            <i class="text-center d-block fas fa-plus-square noItems-add"></i> 
+                        </button>
+                                                   
+                    </div>
+                </ng-template>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Agregar/Editar item-->
+
+<div class="modal fade" id="modalInsumo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <h5 class="bg-info text-white text-center">Artículos</h5>
+            <div class="modal-header">
+                
+                
+                <h5 class="modal-title" id="exampleModalLabel">
+                    {{!this.servicio.selected._id?'Nuevo Artículo':'Modificar Artículo'}}
+                </h5>
+                <button #btnClose type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="resetForm()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form  #formInsumo ="ngForm" (ngSubmit) = "onSave(formInsumo)">
+                    <input type="hidden" name="id" [(ngModel)] = "this.servicio.selected._id">
+                    <div class="form-group">
+                        <label for="denominacion">Denominación:</label>
+                        <input type="text" class="form-control" name="denominacion" [(ngModel)] = "this.servicio.selected.denominacion">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="precioCompra">Costo:</label>
+                            <input type="number" class="form-control" name="precioCompra" [(ngModel)]="this.servicio.selected.precioCompra">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="precioVenta">Precio:</label>
+                            <input type="number" class="form-control" name="precioVenta" [(ngModel)]=" this.servicio.selected.precioVenta">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="stockActual">Stock:</label>
+                            <input type="number" class="form-control" name="stockActual" [(ngModel)]="this.servicio.selected.stockActual">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="stockMinimo">Mínimo:</label>
+                            <input type="number" class="form-control" name="stockMinimo" [(ngModel)]="this.servicio.selected.stockMinimo">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-9">
+                            <label for="unidadMedida">Unidad de Medida:</label>
+                            <input type="text" class="form-control" name="unidadMedida" [(ngModel)]="this.servicio.selected.unidadMedida">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="esInsumo">Es insumo:</label>
+                            <select name="esInsumo" class="form-control" [(ngModel)]="this.servicio.selected.esInsumo">
+                                <option value="1">Si</option>
+                                <option value="0" selected>No</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-dismiss="modal">
+                            Cerrar
+                        </button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                    
+                </form>
+            </div>
+            
+        </div>
+    </div>
+
+
+
+</div>

@@ -1,5 +1,8 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark text-white ">
-    <i class="fas fa-utensils"></i><a routerLink="/" class="nav-link"><span class="ml-1 text-white">El Buen Sabor</span></a>
+    <a *ngIf="isLogged == true;else notLogged" routerLink="/panel" class="nav-link"><span class="ml-1 text-white"><i class="fas fa-utensils"></i> El Buen Sabor</span></a>
+    <ng-template #notLogged>
+        <a  class="nav-link" ><span class="ml-1 text-white"><i class="fas fa-utensils"></i> El Buen Sabor</span></a>
+    </ng-template>
     <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown " *ngIf="isLogged">
             <a href="#" class="nav-link dropdown-toggle text-white" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Administración</a>
@@ -19,11 +22,11 @@
                 <a href="#" class="dropdown-item">3</a>
             </div>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="!isLogged">
             <a routerLink="/register" class="nav-link">Registrarse</a>
         </li>
         <li class="nav-item" *ngIf="isLogged">
-            <a href="index.html" class="nav-link text-white" (click)="logOut()">
+            <a href="#" class="nav-link text-white" (click)="logOut()">
                 <i class="fas fa-user-times"></i> Salir
             </a>
         </li>
