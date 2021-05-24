@@ -1,4 +1,27 @@
 .articulo img{
     width: 100%;
     height:200px;
+    
+}
+.image-upload input{
+    display:none
+}
+
+//icono carpeta
+.image-upload i{
+    font-size:100px;
+    cursor:pointer;
+}
+
+.image-upload{
+    height: 180px;
+}
+
+.img-loaded{
+    width:100%;
+}
+.img-loaded img{
+    width: 100%;
+    height: 180px;
+    cursor:pointer;
 }

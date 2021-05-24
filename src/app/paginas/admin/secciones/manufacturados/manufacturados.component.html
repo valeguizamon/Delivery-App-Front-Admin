@@ -1,3 +1,5 @@
+<!--Contenido de manufacturados-->
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
@@ -8,53 +10,135 @@
                     </h4>
                 </div>
                 <div class="card-body">
-                    <button class="btn btn-success m-3">
+                    <button class="btn btn-success m-3" data-toggle="modal" data-target="#modalManu">
                         Agregar articulo <i class="fas fa-plus"></i>
                     </button>
-                    <div class="d-flex flex-wrap justify-content-around">
-                        <div class="col-md-3 border border-info rounded p-2 articulo mx-1 mb-4">
-                            <h4 class="text-center text-white bg-dark">Title</h4>
-                            <img src="../../../assets/img/comida1.jfif" class="mx-auto d-block my-2" alt="">
-                            <button class="btn btn-warning btn-block">Ver información</button>
+                    <div class="d-flex flex-wrap justify-content-around" >
+                        <div class="col-md-3 border border-info rounded p-2 articulo mx-1 mb-4" *ngFor ="let item of manufacturados;index as ind">
+                            <h4 class="text-center text-white bg-dark">{{item.denominacion}}</h4>
+                            <img [src]='item.img' class="mx-auto d-block my-2" alt="">
+                            <div class="btn-group d-flex " role="group">
+                                <button class="btn btn-success " title="Ver información"><i class="far fa-list-alt"></i></button>
+                                <button class="btn btn-info " title="Editar" data-toggle="modal" data-target="#modalManu" (click)="preUpdate(item)"><i class="fas fa-edit"></i></button>
+                                <button class="btn btn-danger " title="Borrar" (click)="onDelete(item._id)"><i class="fas fa-trash"></i></button>
+                            </div>
+                            
+                            
                         </div>
-                        <div class="col-md-3 border border-info rounded p-2 articulo mx-1 mb-4">
-                            <h4 class="text-center text-white bg-dark">Title</h4>
-                            <img src="../../../assets/img/comida2.jpg" class="mx-auto d-block my-2" alt="">
-                            <button class="btn btn-warning btn-block">Ver información</button>
-                        </div>
-                        <div class="col-md-3 border border-info rounded p-2 articulo mx-1 mb-4">
-                            <h4 class="text-center text-white bg-dark">Title</h4>
-                            <img src="../../../assets/img/comida3.jpg" class="mx-auto d-block my-2" alt="">
-                            <button class="btn btn-warning btn-block">Ver información</button>
-                        </div>
-                        <div class="col-md-3 border border-info rounded p-2 articulo mx-1 mb-4">
-                            <h4 class="text-center text-white bg-dark">Title</h4>
-                            <img src="../../../assets/img/comida4.png" class="mx-auto d-block my-2" alt="">
-                            <button class="btn btn-warning btn-block">Ver información</button>
-                        </div>
-                        <div class="col-md-3 border border-info rounded p-2 articulo mx-1 mb-4">
-                            <h4 class="text-center text-white bg-dark">Title</h4>
-                            <img src="../../../assets/img/comida5.jpg" class="mx-auto d-block my-2" alt="">
-                            <button class="btn btn-warning btn-block">Ver información</button>
-                        </div>
-                        <div class="col-md-3 border border-info rounded p-2 articulo mx-1 mb-4">
-                            <h4 class="text-center text-white bg-dark">Title</h4>
-                            <img src="../../../assets/img/comida6.png" class="mx-auto d-block my-2" alt="">
-                            <button class="btn btn-warning btn-block">Ver información</button>
-                        </div>
-                        <div class="col-md-3 border border-info rounded p-2 articulo mx-1 mb-4">
-                            <h4 class="text-center text-white bg-dark">Title</h4>
-                            <img src="../../../assets/img/comida6.png" class="mx-auto d-block my-2" alt="">
-                            <button class="btn btn-warning btn-block">Ver información</button>
-                        </div>
-                        <div class="col-md-3 border border-info rounded p-2 articulo mx-1 mb-4">
-                            <h4 class="text-center text-white bg-dark">Title</h4>
-                            <img src="../../../assets/img/comida6.png" class="mx-auto d-block my-2" alt="">
-                            <button class="btn btn-warning btn-block">Ver información</button>
-                        </div>
-                        
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--modal-->
+<div class="modal fade" id="modalManu" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <h5 class="text-center text-white bg-dark">
+                Manufacturados
+            </h5>
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    {{!this.servicio.selected._id?'Nuevo Artículo':'Modificar Artículo'}}
+                </h5>
+                <button #btnClose type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="resetForm()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form #formManu="ngForm">
+                    <input type="hidden" name="id" [(ngModel)] = "this.servicio.selected._id">
+                    <div class="form-row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="denominacion">Denominación:</label>
+                                <input type="text" class="form-control" name="denominacion" [(ngModel)]="this.servicio.selected.denominacion">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-3">
+                                    <label for="precio">Precio:</label>
+                                    <input type="number" class="form-control" name="precio" [(ngModel)]="this.servicio.selected.precioVenta">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="tiempoEst">Tiempo estimado:</label>
+                                    <input type="number" class="form-control" name="tiempoEst" 
+                                    [(ngModel)]="this.servicio.selected.tiempoEstimado">
+                                </div>
+                                <div class="form-group col-md-5">
+                                    <label for="rubro">Rubro:</label>
+                                    <select name="rubro_id"  class="form-control" [(ngModel)]="this.servicio.selected.RubroGeneral">
+                                       
+                                        <option *ngFor="let rubro of rubros" [value]="rubro._id" >{{rubro.denominacion}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="image-upload mx-auto d-flex justify-content-center align-items-center" id="preview"  title="Elegir una imagen">
+                                <label for="file-input" >
+                                    <i class="fas fa-folder-open" *ngIf="this.imgLoading===false && !urlPreview && !this.servicio.selected.img"></i>
+                                    <div class="img-loaded mx-auto" *ngIf="urlPreview;else notLoaded">
+                                        <img [src]="urlPreview " alt="Cargando..." class="rounded-lg d-block mx-auto ">
+                                    </div>
+                                    <ng-template #notLoaded>
+                                        <div class="img-loaded mx-auto" *ngIf="this.imgLoading">
+                                            <div class="d-flex justify-content-center">
+                                                <div class="spinner-border text-warning" role="status">
+                                                  <span class="sr-only">Loading...</span>
+                                                </div>
+                                              </div>
+                                              
+                                        </div>
+                                    </ng-template>
+                                </label>
+                                <input id="file-input" accept=".png, .jpg" type="file" (change)="prevImage($event)">
+                            </div>
+                            
+                            
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        
+                        <div class="form-group col-md-4">
+                            
+                            <select name="insumo_id"  class="form-control" [(ngModel)]="ingrediente.ArtInsumo">
+                                <option value="" selected disabled>Seleccione un ingrediente</option>      
+                                <option *ngFor="let insumo of insumos" [value]="insumo._id" >{{insumo.denominacion}}</option>
+                            </select>                            
+                        </div>
+                        <div class="form-group col-md-2">
+                            <input type="number" class="form-control" placeholder="Cantidad" name="cantidad" [(ngModel)]="ingrediente.cantidad">
+                            
+                        </div>
+                        <div class=" col-md-3">
+                            
+                            <button class="btn btn-success " (click)="agregarItem()" [disabled]="validarItem()">Agregar</button>
+                        </div>
+                        
+                    </div>                    
+                    <div *ngIf="this.ingredientes.length==0" class="text-danger mb-4">
+                        <span >Al menos debe agregar un ingrediente.</span>
+                    </div>
+                    <div class="ingredientes d-flex flex-wrap" *ngIf="ingredientes.length!=0">
+                        <div *ngFor="let item of ingredientes;index as ind" class="alert alert-warning alert-dismissible fade show mx-2" role="alert">
+                            <span>{{item.vista}} </span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="eliminarItem(ind)">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                    </div>
+                    
+                    <button class="btn btn-info btn-lg" (click)="onSave()" [disabled]="validarTodo()">Guardar</button>
+                    
+                    
+                    
+                    
+                    
+                    
+                </form>
+                
+                
             </div>
         </div>
     </div>

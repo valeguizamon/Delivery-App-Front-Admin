@@ -13,7 +13,7 @@ import { environment } from 'src/environments/environment';
 import { AngularFireDatabaseModule} from '@angular/fire/database';
 import { HttpClientModule} from "@angular/common/http";
 import { FormsModule } from '@angular/forms';
-
+import { AngularFireStorageModule} from '@angular/fire/storage'
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,6 +31,7 @@ import { FormsModule } from '@angular/forms';
     FooterModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
+    AngularFireStorageModule,
     HttpClientModule,
     
   ],
