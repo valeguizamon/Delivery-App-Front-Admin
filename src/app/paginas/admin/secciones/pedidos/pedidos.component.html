@@ -1,1 +1,39 @@
-<p>pedidaaaa!</p>
+<div class="container-fuild">
+    <div class="row no-gutters">
+        <nav class="col-md-2 bg-info sidebar-sticky ">
+            
+                <ul class="nav flex-column bg-dark text-white d-flex justify-content-center">
+                    <li class="nav-item text-center pt-3" [routerLink]="['/admin/pedidos/nuevos']">
+                        <i class="fas fa-concierge-bell"></i>
+                        <h6 class="text-center mt-2">Nuevos</h6>
+                    </li>
+                   
+                    <li class="nav-item text-center pt-3" [routerLink]="['/admin/pedidos/cocina']">
+                        <i class="fas fa-bread-slice"></i>
+                        <h6 class="text-center mt-2">Cocina</h6>
+                    </li>
+                    <li class="nav-item text-center pt-3">
+                        <i class="fas fa-motorcycle"></i>
+                        <h6 class="text-center mt-2">Delivery</h6>
+                    </li>
+                    <li class="nav-item text-center pt-3" [routerLink]="['/admin/pedidos/historial']">
+                        <i class="far fa-clipboard"></i>
+                        
+                        <h6 class="text-center mt-2">Historial</h6>
+                    </li>
+                    <li class="nav-item text-center pt-3" [routerLink]="['/admin/pedidos/generador']">
+                        <i class="fas fa-external-link-square-alt"></i>
+                        
+                        <h6 class="text-center mt-2">Generador</h6>
+                    </li>
+                </ul>
+               
+               
+            
+        </nav>
+        <div class="col-md-10" id="panel">
+        
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

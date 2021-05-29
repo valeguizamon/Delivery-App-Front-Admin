@@ -13,9 +13,11 @@ import { ModalrubrogenComponent } from './secciones/rubros/modales/modalrubrogen
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
+
 @NgModule({
-  declarations: [AdminComponent, PedidosComponent, UsuariosComponent, RubrosComponent, InsumosComponent, ManufacturadosComponent, ModalrubroartComponent,ModalrubrogenComponent],
+  declarations: [AdminComponent, UsuariosComponent, RubrosComponent, InsumosComponent, ManufacturadosComponent, ModalrubroartComponent,ModalrubrogenComponent],
   imports: [
+  
     CommonModule,
     AdminRoutingModule,
     FormsModule,

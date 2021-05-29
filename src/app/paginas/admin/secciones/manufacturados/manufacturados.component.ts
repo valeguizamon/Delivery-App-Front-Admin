@@ -155,8 +155,8 @@ export class ManufacturadosComponent implements OnInit {
   validarItem():boolean{
     return this.ingrediente.cantidad==0 || this.ingrediente.ArtInsumo==""
   }
-  validarTodo():boolean{
-    return this.ingredientes.length==0?true:false
+  validarTodo(formManu: NgForm):boolean{
+    return this.ingredientes.length==0 || formManu.invalid?true:false
   }
 
   //-----------PREPARAR FORM PARA EDITAR ARTICULO--------//
@@ -212,6 +212,7 @@ export class ManufacturadosComponent implements OnInit {
         })
       }
 
+      this.getAllManufacturados()
 
   
    
@@ -221,11 +222,12 @@ export class ManufacturadosComponent implements OnInit {
     const confirmacion=confirm("¿Está seguro que desea eliminar este artículo?")
     if(confirmacion){
       this.servicio.delete(id).subscribe(
-        ()=>alert("Artículo eliminado correctamente")
+        ()=>{alert("Artículo eliminado correctamente")
+        this.getAllManufacturados()}
       )
     }
-    this.servicio.setNull()
-    this.getAllManufacturados()
+    
+    
   }
   //-----------RESET FORMULARIO------//
   resetForm(){
@@ -238,5 +240,6 @@ export class ManufacturadosComponent implements OnInit {
     this.ingredientes= []
     this.urlPreview=''
     this.imgFile = null
+    this.getAllManufacturados()
   }
 }

@@ -47,27 +47,30 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form #formManu="ngForm">
+                <form #formManu="ngForm" (ngSubmit)="onSave()" novalidate> 
                     <input type="hidden" name="id" [(ngModel)] = "this.servicio.selected._id">
+                    <div class="text-danger mb-2" *ngIf="validarTodo(formManu)">
+                        <span>Completa todos los campos.</span>
+                    </div>
                     <div class="form-row">
                         <div class="col-md-8">
                             <div class="form-group">
                                 <label for="denominacion">Denominación:</label>
-                                <input type="text" class="form-control" name="denominacion" [(ngModel)]="this.servicio.selected.denominacion">
+                                <input type="text" class="form-control" name="denominacion" [(ngModel)]="this.servicio.selected.denominacion" required>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-3">
                                     <label for="precio">Precio:</label>
-                                    <input type="number" class="form-control" name="precio" [(ngModel)]="this.servicio.selected.precioVenta">
+                                    <input type="number" class="form-control" name="precio" [(ngModel)]="this.servicio.selected.precioVenta" required>
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="tiempoEst">Tiempo estimado:</label>
                                     <input type="number" class="form-control" name="tiempoEst" 
-                                    [(ngModel)]="this.servicio.selected.tiempoEstimado">
+                                    [(ngModel)]="this.servicio.selected.tiempoEstimado" required>
                                 </div>
                                 <div class="form-group col-md-5">
                                     <label for="rubro">Rubro:</label>
-                                    <select name="rubro_id"  class="form-control" [(ngModel)]="this.servicio.selected.RubroGeneral">
+                                    <select name="rubro_id"  class="form-control" [(ngModel)]="this.servicio.selected.RubroGeneral" required>
                                        
                                         <option *ngFor="let rubro of rubros" [value]="rubro._id" >{{rubro.denominacion}}</option>
                                     </select>
@@ -111,7 +114,7 @@
                             <input type="number" class="form-control" placeholder="Cantidad" name="cantidad" [(ngModel)]="ingrediente.cantidad">
                             
                         </div>
-                        <div class=" col-md-3">
+                        <div class=" col-md-2">
                             
                             <button class="btn btn-success " (click)="agregarItem()" [disabled]="validarItem()">Agregar</button>
                         </div>
@@ -129,7 +132,7 @@
                           </div>
                     </div>
                     
-                    <button class="btn btn-info btn-lg" (click)="onSave()" [disabled]="validarTodo()">Guardar</button>
+                    <button class="btn btn-info btn-lg" type="submit" [disabled]="validarTodo(formManu)">Guardar</button>
                     
                     
                     

@@ -10,7 +10,7 @@ import { UsuariosComponent } from './secciones/usuarios/usuarios.component';
 const routes: Routes = [
   { path: '', component: AdminComponent,
   children:[
-    { path: 'pedidos', component: PedidosComponent},
+    { path: 'pedidos', loadChildren: () => import('./secciones/pedidos/pedidos.module').then(m => m.PedidosModule) },
     { path: 'insumos', component: InsumosComponent},
     { path: 'manufacturados', component: ManufacturadosComponent},
     { path: 'usuarios', component: UsuariosComponent},

@@ -1,14 +1,14 @@
 import { RubroArt } from "./RubroArt"
 
 export class Insumo{
-    _id: String
-    denominacion: String
-    precioCompra: Number
-    precioVenta: Number
-    stockActual: Number
-    stockMinimo: Number
-    unidadMedida: String
+    _id: string
+    denominacion: string
+    precioCompra: number
+    precioVenta: number
+    stockActual: number
+    stockMinimo: number
+    unidadMedida: string
     esInsumo: Boolean
-    RubroArt_id: String
+    RubroArt_id: string
     
 }
