@@ -3,7 +3,7 @@ export class Pedido{
     _id:string
     fecha: Date 
     estado:string
-    horaEstimadaFin: Date
+    horaEstimadaFin: number
     tipoEnvio: number
     total: number
     Cliente?: {
@@ -24,7 +24,6 @@ export class Pedido{
     MdoPago?: string
 
     constructor(){}
-
     setDetalle(detalle){
         const detalleFinal = detalle.map((item)=>{
             let det = {
@@ -40,4 +39,5 @@ export class Pedido{
         })
         this.DetallePedido= detalleFinal
     }
+    
 }

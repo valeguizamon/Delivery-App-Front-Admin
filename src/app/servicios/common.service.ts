@@ -24,7 +24,7 @@ export class CommonService<T> {
         return this.http.post<T>(this.miUrl, rubro)
     }
 
-    put(id: string, rubro: T): Observable<T>{
+    put(id: string, rubro): Observable<T>{
         return this.http.put<T>(this.miUrl+id,rubro)
     }
 

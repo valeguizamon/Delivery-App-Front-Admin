@@ -1,5 +1,7 @@
-
-
+.accordion{
+    overflow-y: scroll;
+    max-height: 500px;
+}
 .item{
     cursor: pointer;
     border-radius:20px 0 !important;
@@ -21,13 +23,13 @@
 }
 .descripcion{
     background: linear-gradient(90deg, rgba(46,46,48,1) 0%, rgba(41,41,56,0.8799894957983193) 48%, rgba(1,11,13,1) 100%, rgba(0,212,255,1) 100%);
-    font-size:13px;
+    font-size:15px;
    
     border-radius: 20px 0;
 }
 .detalle{
     width: 90%;
-    height: 250px;
+    max-height: 250px;
     overflow-y:scroll;
     &::-webkit-scrollbar{
         width: 8px; 
@@ -48,9 +50,21 @@
     }
     font-size: 14px;
     .item-detalle span{
-        font-size: 12px;
+        font-size: 16px;
     }
 }
 .nota p{
     font-size:11px;
+}
+
+.noPedidos{
+
+    width: 300px;
+    height: 300px;
+    i{
+        font-size: 100px;
+    }
+    p{
+        font-size:30px
+    }
 }

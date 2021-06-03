@@ -139,9 +139,8 @@ export class GeneradorComponent implements OnInit {
         }
       }
     })
-    let fechaFin = new Date()
-    fechaFin.setMinutes(fechaFin.getMinutes()+tiempo)
-    this.pedido.horaEstimadaFin = fechaFin
+  
+    this.pedido.horaEstimadaFin = 20
     this.pedido.total = this.total
     this.pedido.estado = "en espera"
     

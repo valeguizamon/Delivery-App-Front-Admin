@@ -1,13 +1,18 @@
-<div class="accordion" id="accordionExample">
-    <div class=" item mx-5 my-3 bg-dark rounded-lg">
-      <div class=" item-button d-flex  align-items-center text-white " id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+<div class="text-white mt-5 mx-5 d-flex justify-content-between">
+    <h5>Nuevos</h5>
+    <button class="btn btn-secondary" (click)="refresh()" title="Actualizar"><i class="fas fa-sync-alt"></i></button>
+
+</div>
+<div class="accordion" id="accordionExample" *ngIf="pedidos.length>0;else noPedidos">
+    <div class=" item mx-5 my-3 bg-dark rounded-lg" *ngFor="let pedido of pedidos;index as ind">
+      <div class=" item-button d-flex  align-items-center text-white " [attr.id]="'heading'+ind" data-toggle="collapse" [attr.data-target]="'#collapse'+ind" aria-expanded="false" aria-controls="collapseOne" >
         <div class="user mx-3 d-flex flex-column  ">
             <p class="secundario">Malvinas argentinas 1451</p>
-            <h5 class="text-success">Mario Benito</h5>
+            <h5 class="text-success">Mario Benito : {{ind}}</h5>
         </div>
         <div class="estado mx-3 d-flex flex-column ">
             <p>Solicitado a las:</p>
-            <h5 class="text-success ">7.13 PM</h5>
+            <h5 class="text-success ">{{pedido.horaE}}</h5>
         </div>
         <div class="estado mx-3 d-flex flex-column ">
             <p>Pago</p>
@@ -16,7 +21,7 @@
         
       </div>
   
-      <div id="collapseOne" class="descripcion collapse row no-gutters text-white wrapp" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div [attr.id]="'collapse'+ind" class="descripcion collapse row no-gutters text-white wrapp" [attr.aria-labelledby]="'heading'+ind" data-parent="#accordionExample">
         <div class="datos col-md-5 d-flex align-items-left flex-column pl-5 pt-4">
             <h5>
                 Marcelo Benito
@@ -24,46 +29,24 @@
             <p>Malvinas Argentinas 1451</p>
             <p>(261)-1552032131</p>
             <p><i class="far fa-credit-card"></i>  Pago: Efectivo</p>
-            <p><i class="far fa-clock"></i>  Solicitado a las : 7.13 PM</p>
+            <p><i class="far fa-clock"></i>  Solicitado a las : {{pedido.horaE}}</p>
         </div>
         <div class="col-md-7 d-flex align-items-left flex-column px-3 pt-4">
             <h5 class="align-self-center">Detalle</h5>
-            <div class="detalle d-flex flex-column mx-auto px-2">
-                
-                <div class="item-detalle d-flex justify-content-between">
-                    <p><span class="badge badge-secondary">2</span> Pizza</p>
-                    <span>$600</span>
+            <div class="detalle d-flex flex-column mx-auto px-2" > 
+                <div class="item-detalle d-flex justify-content-between" *ngFor="let detalle of pedido.DetallePedido">
+                    <p><span class="badge badge-secondary">{{detalle.cantidad}}</span></p>
+                    <span *ngIf="detalle.ArtManufact;else ArtInsumo">{{detalle.ArtManufact.denominacion}}</span>
+                    <ng-template #ArtInsumo>
+                        <span>{{detalle.ArticuloInsumo.denominacion}}</span>
+                    </ng-template>
+                    <span>${{detalle.subTotal}}</span>
                 </div>
-                <div class="item-detalle d-flex justify-content-between">
-                    <p><span class="badge badge-secondary">1</span> Pepsi 500ml</p>
-                    <span>$100</span>
-                </div>
-                <div class="item-detalle d-flex justify-content-between">
-                    <p><span class="badge badge-secondary">1</span> Pepsi 500ml</p>
-                    <span>$100</span>
-                </div>
-                <div class="item-detalle d-flex justify-content-between">
-                    <p><span class="badge badge-secondary">1</span> Pepsi 500ml</p>
-                    <span>$100</span>
-                </div>
-                <div class="item-detalle d-flex justify-content-between">
-                    <p><span class="badge badge-secondary">1</span> Pepsi 500ml</p>
-                    <span>$100</span>
-                </div>
-                <div class="item-detalle d-flex justify-content-between">
-                    <p><span class="badge badge-secondary">1</span> Pepsi 500ml</p>
-                    <span>$100</span>
-                </div>
-                <div class="item-detalle d-flex justify-content-between">
-                    <p><span class="badge badge-secondary">1</span> Pepsi 500ml</p>
-                    <span>$100</span>
-                </div>
-
             </div>
             
             <div class="d-flex justify-content-between px-4 ">
                 <h5 class="text-info">Total</h5>
-                <h5 class="text-info">$600</h5>
+                <h5 class="text-info">${{pedido.total}}</h5>
             </div>
             <div class="nota px-4">
                 <p class=""><strong>Nota:</strong> Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam facere sequi obcaecati dolore, quae omnis molestias deleniti consequuntur voluptates alias eligendi nam quia cum eaque!</p>
@@ -71,10 +54,16 @@
             
         </div>
         <div class="col-md-12 d-flex justify-content-end pr-5 pb-3">
-            <button class="btn  btn-outline-info rounded-pill d-block mx-2">Cancelar</button>
-            <button class="btn  btn-outline-info rounded-pill d-block mx-2">Aceptar</button>
+            <button class="btn  btn-outline-danger rounded-pill d-block mx-2">Rechazar</button>
+            <button class="btn  btn-outline-info rounded-pill d-block mx-2" (click)="acceptPedido(pedido)">Aceptar</button>
         </div>
       </div>
     </div>
     
-  </div>
+</div>
+<ng-template #noPedidos>
+    <div class="noPedidos mx-auto text-white d-flex justify-content-center flex-column align-items-center mt-5">
+        <i class="fas fa-file-signature"></i>
+        <p>No hay pedidos aún.</p>
+    </div>
+</ng-template>
