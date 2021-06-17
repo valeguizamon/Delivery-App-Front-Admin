@@ -10,11 +10,12 @@ import { GeneradorComponent } from './generador/generador.component';
 import { FormsModule } from '@angular/forms';
 import { ModalDetalleComponent } from './modales/modal-detalle/modal-detalle.component';
 import { ModalcancelComponent } from './modales/modalcancel/modalcancel.component';
+import { DeliveryComponent } from './delivery/delivery.component';
 
 
 
 @NgModule({
-  declarations: [PedidosComponent, NuevosComponent,CocinaComponent,HistorialComponent, GeneradorComponent, ModalDetalleComponent, ModalcancelComponent],
+  declarations: [PedidosComponent, NuevosComponent,CocinaComponent,HistorialComponent, GeneradorComponent, ModalDetalleComponent, ModalcancelComponent, DeliveryComponent],
   imports: [
     
     CommonModule,

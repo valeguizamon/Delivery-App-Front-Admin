@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Pedido } from 'src/app/models/Pedido';
 import { PedidosService } from 'src/app/servicios/pedidos.service';
-
+import State from 'src/app/models/statePedido';
 @Component({
   selector: 'app-nuevos',
   templateUrl: './nuevos.component.html',
@@ -19,20 +19,12 @@ export class NuevosComponent implements OnInit {
   
   //Cargar los pedidos nuevos
   getNewPedidos(){
-    this.servicio.getAll().subscribe((data)=>{
-      this.pedidos = data.filter((pedido)=>pedido.estado == "en espera")
-      console.log(this.pedidos)
-      this.prepareTime()
+    this.servicio.getPedidosByState(State.ESPERA).subscribe((data)=>{
+      this.pedidos = data;
     })
   }
   //-----------------------------------------------------
-  //Horario de entrada del pedido
-  prepareTime(){
-    this.pedidos.forEach((pedido) => {
-      let date: Date = new Date(pedido.fecha)
-      pedido['horaE'] = date.getHours()+':'+date.getMinutes()
-    })
-  }
+  
   //Actualizar el panel de los pedidos
   refresh(){
     console.log("actualizando")
@@ -40,10 +32,14 @@ export class NuevosComponent implements OnInit {
   }
 
   //Aceptar el pedido
-  acceptPedido(pedido){
-    this.servicio.put(pedido._id,{estado:"en cocina"}).subscribe((data)=>{
-      console.log("pedido aceptado")
-      this.refresh()
-    })
+  acceptPedido(id){
+    this.servicio.acceptPedido(id,{"status":State.ESPERA}).subscribe(
+      (res)=>{
+        console.log("respuesta",res)
+        this.getNewPedidos()
+      },
+      (err)=> console.log("Error",err)
+    )
+    
   }
 }

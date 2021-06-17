@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CocinaComponent } from './cocina/cocina.component';
+import { DeliveryComponent } from './delivery/delivery.component';
 import { GeneradorComponent } from './generador/generador.component';
 import { HistorialComponent } from './historial/historial.component';
 import { NuevosComponent } from './nuevos/nuevos.component';
@@ -13,7 +14,8 @@ const routes: Routes =[
         {path:'nuevos', component:NuevosComponent},
         {path:'cocina',component:CocinaComponent},
         {path:'historial',component:HistorialComponent},
-        {path:'generador',component:GeneradorComponent}
+        {path:'generador',component:GeneradorComponent},
+        {path:'delivery',component: DeliveryComponent}
     ]}
 ]
 
