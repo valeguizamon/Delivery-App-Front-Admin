@@ -27,7 +27,16 @@ export class CocinaComponent implements OnInit {
     console.log("actualizando")
     this.getPedidos()
   }
-
+  //Demorar el pedido 10"
+  demorarPedido(id){
+    this.servicio.demorarPedido(id).subscribe(
+      (res)=>{
+        console.log("Mensaje",res)
+        this.getPedidos()
+      },
+      (err)=> console.log(err)
+    )
+  }
   //Aceptar el pedido
   acceptPedido(id){
     this.servicio.acceptPedido(id,{"status":State.COCINA}).subscribe(

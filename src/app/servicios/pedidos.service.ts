@@ -19,4 +19,8 @@ export class PedidosService extends CommonService<Pedido>{
   acceptPedido(pedidoId: string,status): Observable<any>{
     return this.https.put<any>(this.miUrl+"accept/"+pedidoId,status)
   }
+
+  demorarPedido(pedidoId: string): Observable<any>{
+    return this.https.get<any>(this.miUrl+"demorar/"+pedidoId)
+  }
 }

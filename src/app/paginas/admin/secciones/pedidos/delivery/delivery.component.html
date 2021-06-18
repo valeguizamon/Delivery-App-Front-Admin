@@ -11,8 +11,8 @@
             <h5 class="text-success">Mario Benito : {{ind}}</h5>
         </div>
         <div class="estado mx-3 d-flex flex-column ">
-            <p>Solicitado a las:</p>
-            <h5 class="text-success ">{{pedido.horaE}}</h5>
+            <p>Finalizado a las:</p>
+            <h5 class="text-success ">{{pedido.horaAccepted}}</h5>
         </div>
         <div class="estado mx-3 d-flex flex-column ">
             <p>Pago</p>
@@ -29,7 +29,7 @@
             <p>Malvinas Argentinas 1451</p>
             <p>(261)-1552032131</p>
             <p><i class="far fa-credit-card"></i>  Pago: Efectivo</p>
-            <p><i class="far fa-clock"></i>  Solicitado a las : {{pedido.horaE}}</p>
+            <p><i class="far fa-clock"></i>  Finalizado a las : {{pedido.horaAccepted}}</p>
         </div>
         <div class="col-md-7 d-flex align-items-left flex-column px-3 pt-4">
             <h5 class="align-self-center">Detalle</h5>
@@ -54,8 +54,8 @@
             
         </div>
         <div class="col-md-12 d-flex justify-content-end pr-5 pb-3">
-            <button class="btn  btn-outline-danger rounded-pill d-block mx-2">Rechazar</button>
-            <button class="btn  btn-outline-info rounded-pill d-block mx-2" (click)="markAsDelivered(pedido._id)">Aceptar</button>
+            <button class="btn  btn-outline-danger rounded-pill d-block mx-2">No entregado</button>
+            <button class="btn  btn-outline-info rounded-pill d-block mx-2" (click)="markAsDelivered(pedido._id)">Entregado</button>
         </div>
       </div>
     </div>

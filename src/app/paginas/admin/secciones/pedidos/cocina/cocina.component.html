@@ -11,12 +11,15 @@
             <h5 class="text-success">Mario Benito : {{ind}}</h5>
         </div>
         <div class="estado mx-3 d-flex flex-column ">
-            <p>Solicitado a las:</p>
-            <h5 class="text-success ">{{pedido.horaE}}</h5>
+            <p>Aceptado a las:</p>
+            <h5 class="text-success ">{{pedido.horaAccepted}}</h5>
         </div>
         <div class="estado mx-3 d-flex flex-column ">
-            <p>Pago</p>
-            <h5 class="text-success">Efectivo</h5>
+            <p>Fin estimado:</p>
+            <h5 class="text-success" *ngIf="pedido.estado!='demorado';else demorado">{{pedido.horaFin}}</h5>
+            <ng-template #demorado>
+                <h5 class="text-danger">{{pedido.horaFin}} <i class="fas fa-clock"> DEMORADO</i></h5>
+            </ng-template>
         </div>
         
       </div>
@@ -26,10 +29,9 @@
             <h5>
                 Marcelo Benito
             </h5>
-            <p>Malvinas Argentinas 1451</p>
+            <p>{{pedido.domicilio}}</p>
             <p>(261)-1552032131</p>
-            <p><i class="far fa-credit-card"></i>  Pago: Efectivo</p>
-            <p><i class="far fa-clock"></i>  Solicitado a las : {{pedido.horaE}}</p>
+            <button class="btn btn-secondary btn-block btnDemorar" (click)="demorarPedido(pedido._id)"><i class="fas fa-clock"></i> Demorar 10"</button>
         </div>
         <div class="col-md-7 d-flex align-items-left flex-column px-3 pt-4">
             <h5 class="align-self-center">Detalle</h5>
@@ -54,8 +56,8 @@
             
         </div>
         <div class="col-md-12 d-flex justify-content-end pr-5 pb-3">
-            <button class="btn  btn-outline-danger rounded-pill d-block mx-2">Rechazar</button>
-            <button class="btn  btn-outline-info rounded-pill d-block mx-2" (click)="acceptPedido(pedido._id)">Aceptar</button>
+            <button class="btn  btn-outline-danger rounded-pill d-block mx-2">Cancelar</button>
+            <button class="btn  btn-outline-info rounded-pill d-block mx-2" (click)="acceptPedido(pedido._id)">Listo</button>
         </div>
       </div>
     </div>
