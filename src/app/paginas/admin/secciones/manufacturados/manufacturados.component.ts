@@ -206,7 +206,7 @@ export class ManufacturadosComponent implements OnInit {
       }
       //editar articulo
       else{
-        this.servicio.put(this.servicio.selected._id as string, this.servicio.selected).subscribe(()=>{
+        this.servicio.put(this.servicio.selected._id, this.servicio.selected).subscribe(()=>{
           alert('Articulo editado correctamente')
           this.btnClose.nativeElement.click()
         })

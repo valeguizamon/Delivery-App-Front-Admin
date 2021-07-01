@@ -13,8 +13,9 @@ export class InsumoService extends CommonService<Insumo> {
     stockActual: 0,
     stockMinimo: 0,
     unidadMedida: '',
-    esInsumo: false,
+    esInsumo: true,
     RubroArt_id: null,
+    img: ''
   };
   miUrl: string = 'http://localhost:2021/api/v1/artin/';
 
@@ -27,8 +28,9 @@ export class InsumoService extends CommonService<Insumo> {
       stockActual: 0,
       stockMinimo: 0,
       unidadMedida: '',
-      esInsumo: false,
+      esInsumo: true,
       RubroArt_id: null,
+      img: ''
     };
   }
 }

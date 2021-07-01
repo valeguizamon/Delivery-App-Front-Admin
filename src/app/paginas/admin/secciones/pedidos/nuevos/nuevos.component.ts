@@ -9,7 +9,9 @@ import State from 'src/app/models/statePedido';
 })
 export class NuevosComponent implements OnInit {
 
+  public idCancel= ""
   public pedidos=[]
+  public motivoCancel = ""
   constructor(public servicio: PedidosService) { }
 
   ngOnInit(): void {
@@ -31,6 +33,10 @@ export class NuevosComponent implements OnInit {
     this.getNewPedidos()
   }
 
+  preUpdateCancel(id){
+    this.idCancel = id
+  }
+
   //Aceptar el pedido
   acceptPedido(id){
     this.servicio.acceptPedido(id,{"status":State.ESPERA}).subscribe(
@@ -40,6 +46,14 @@ export class NuevosComponent implements OnInit {
       },
       (err)=> console.log("Error",err)
     )
-    
+  }
+  cancelPedido(id){
+    this.servicio.cancelPedido(id,{"motivo":this.motivoCancel}).subscribe(
+      (res) => {
+        console.log("respuesta",res)
+        this.getNewPedidos()
+      },
+      (err) => console.log("Error",err)
+    )
   }
 }

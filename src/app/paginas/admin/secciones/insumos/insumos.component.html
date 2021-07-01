@@ -22,6 +22,7 @@
                                 <th>Mínimo</th>
                                 <th>Unidad</th>
                                 <th>Insumo</th>
+                                <th>Imagen</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -34,7 +35,15 @@
                                 <td>{{insumo.stockActual}}</td>
                                 <td>{{insumo.stockMinimo}}</td>
                                 <td>{{insumo.unidadMedida}}</td>
-                                <td>{{insumo.esInsumo==1?'Si':'No'}}</td>
+                                <td>{{insumo.esInsumo==true?'Si':'No'}}</td>
+                                <td *ngIf="!insumo.img || insumo.img=='';else linkImg">
+                                    No
+                                </td>
+                                <ng-template #linkImg>
+                                    <td>
+                                        <a [href]="insumo.img" target="_blank">Ver Imagen</a>
+                                    </td>
+                                </ng-template>
                                 <td>
                                     <button class="btn btn-warning" data-toggle="modal" data-target="#modalInsumo" (click)="preUpdateInsumo(insumo)"><i class="fas fa-edit"></i></button>
 
@@ -80,7 +89,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form  #formInsumo ="ngForm" (ngSubmit) = "onSave(formInsumo)">
+                <form  #formInsumo ="ngForm" (ngSubmit) = "onSave()">
                     <input type="hidden" name="id" [(ngModel)] = "this.servicio.selected._id">
                     <div class="form-group">
                         <label for="denominacion">Denominación:</label>
@@ -114,17 +123,35 @@
                         <div class="form-group col-md-3">
                             <label for="esInsumo">Es insumo:</label>
                             <select name="esInsumo" class="form-control" [(ngModel)]="this.servicio.selected.esInsumo">
-                                <option value="1">Si</option>
-                                <option value="0" selected>No</option>
+                                <option [ngValue]="true" selected>Si</option>
+                                <option [ngValue]="false" >No</option>
                             </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mx-auto" *ngIf="this.servicio.selected.esInsumo.toString() == 'false'">
+                        <div class="image-upload mx-auto d-flex justify-content-center align-items-center" id="preview"  title="Elegir una imagen">
+                            <label for="file-input" >
+                                <i class="fas fa-folder-open" *ngIf="this.imgLoading===false && !urlPreview && !this.servicio.selected.img"></i>
+                                <div class="img-loaded mx-auto" *ngIf="urlPreview;else notLoaded">
+                                    <img [src]="urlPreview " alt="Cargando..." class="rounded-lg d-block mx-auto ">
+                                </div>
+                                <ng-template #notLoaded>
+                                    <div class="img-loaded mx-auto" *ngIf="this.imgLoading">
+                                        <div class="d-flex justify-content-center">
+                                            <div class="spinner-border text-warning" role="status">
+                                              <span class="sr-only">Loading...</span>
+                                            </div>
+                                          </div>
+                                          
+                                    </div>
+                                </ng-template>
+                            </label>
+                            <input id="file-input" accept=".png, .jpg" type="file" (change)="prevImage($event)">
                         </div>
                     </div>
                     
                     
                     <div class="modal-footer">
-                        <button class="btn btn-secondary" data-dismiss="modal">
-                            Cerrar
-                        </button>
                         <button type="submit" class="btn btn-primary">Guardar</button>
                     </div>
                     

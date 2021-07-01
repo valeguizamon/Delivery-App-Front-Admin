@@ -54,7 +54,7 @@
             
         </div>
         <div class="col-md-12 d-flex justify-content-end pr-5 pb-3">
-            <button class="btn  btn-outline-danger rounded-pill d-block mx-2">Rechazar</button>
+            <button class="btn  btn-outline-danger rounded-pill d-block mx-2" data-toggle="modal" data-target="#cancelModal" (click)="preUpdateCancel(pedido._id)">Rechazar</button>
             <button class="btn  btn-outline-info rounded-pill d-block mx-2" (click)="acceptPedido(pedido._id)">Aceptar</button>
         </div>
       </div>
@@ -67,3 +67,5 @@
         <p>No hay pedidos aún.</p>
     </div>
 </ng-template>
+
+<app-modalcancel (refresh)="refresh()" [idCancel]="idCancel"></app-modalcancel>

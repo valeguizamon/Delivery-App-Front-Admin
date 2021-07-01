@@ -10,5 +10,6 @@ export class Insumo{
     unidadMedida: string
     esInsumo: Boolean
     RubroArt_id: string
+    img?: string
     
 }
