@@ -17,11 +17,11 @@
                         <li class="list-group-item list-group-item-secondary d-flex">
                             <a [routerLink]="['/admin/insumos']" class="text-dark  mx-auto">Insumos</a>
                         </li>
-                        
+
                         <li class="list-group-item list-group-item-secondary d-flex">
                             <a [routerLink]="['/admin/manufacturados']" class="text-dark  mx-auto">Manufacturados</a>
                         </li>
-                       
+
                     </ul>
                 </div>
             </div>
@@ -54,18 +54,23 @@
                 </div>
                 <div class="card-body">
                     <li class="list-group-item list-group-item-secondary d-flex">
-                        <a href="#" class="text-dark mx-auto">
-                            Reporte1
+                        <a [routerLink]="['/admin/comida']" class="text-dark mx-auto">
+                            Ranking Comidas
                         </a>
                     </li>
                     <li class="list-group-item list-group-item-secondary d-flex">
-                        <a href="#" class="text-dark mx-auto">
-                            Reporte2
+                        <a [routerLink]="['/admin/ingresos']" class="text-dark mx-auto">
+                            Ingresos
                         </a>
                     </li>
                     <li class="list-group-item list-group-item-secondary d-flex">
-                        <a href="#" class="text-dark mx-auto">
-                            Reporte3
+                        <a  [routerLink]="['/admin/ganancias']" class="text-dark mx-auto">
+                            Ganancias
+                        </a>
+                    </li>
+                    <li class="list-group-item list-group-item-secondary d-flex">
+                        <a  [routerLink]="['/admin/usuario/pedidos']" class="text-dark mx-auto">
+                            Pedidos agrupados por Usuario
                         </a>
                     </li>
                 </div>

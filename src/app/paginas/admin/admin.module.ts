@@ -11,11 +11,15 @@ import { ManufacturadosComponent } from './secciones/manufacturados/manufacturad
 import { ModalrubroartComponent } from './secciones/rubros/modales/modalrubroart/modalrubroart.component';
 import { ModalrubrogenComponent } from './secciones/rubros/modales/modalrubrogen/modalrubrogen.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ComidaComponent } from './secciones/reportes/comida/comida.component';
+import { IngresosComponent } from './secciones/reportes/ingresos/ingresos.component';
+import { GananciasComponent } from './secciones/reportes/ganancias/ganancias.component';
+import { UsuariopedidosComponent } from './secciones/reportes/usuariopedidos/usuariopedidos.component';
 
 
 
 @NgModule({
-  declarations: [AdminComponent, UsuariosComponent, RubrosComponent, InsumosComponent, ManufacturadosComponent, ModalrubroartComponent,ModalrubrogenComponent],
+  declarations: [AdminComponent, UsuariosComponent, RubrosComponent, InsumosComponent, ManufacturadosComponent, ModalrubroartComponent,ModalrubrogenComponent, ComidaComponent, IngresosComponent, GananciasComponent, UsuariopedidosComponent],
   imports: [
   
     CommonModule,
