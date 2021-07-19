@@ -15,11 +15,15 @@ import { ComidaComponent } from './secciones/reportes/comida/comida.component';
 import { IngresosComponent } from './secciones/reportes/ingresos/ingresos.component';
 import { GananciasComponent } from './secciones/reportes/ganancias/ganancias.component';
 import { UsuariopedidosComponent } from './secciones/reportes/usuariopedidos/usuariopedidos.component';
+import { ConfigComponent } from './secciones/configuracion/config.component';
+
 
 
 
 @NgModule({
-  declarations: [AdminComponent, UsuariosComponent, RubrosComponent, InsumosComponent, ManufacturadosComponent, ModalrubroartComponent,ModalrubrogenComponent, ComidaComponent, IngresosComponent, GananciasComponent, UsuariopedidosComponent],
+
+  declarations: [AdminComponent, UsuariosComponent, RubrosComponent, InsumosComponent, ManufacturadosComponent, ModalrubroartComponent,ModalrubrogenComponent, ComidaComponent, IngresosComponent, GananciasComponent, UsuariopedidosComponent, ConfigComponent],
+
   imports: [
   
     CommonModule,

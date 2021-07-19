@@ -1,9 +1,9 @@
 <section id="menu" class="pb-5">
     <div class="container pt-5 ">
         <div class="row text-center menu-op mx-auto">
-            <a [routerLink]="['/admin/pedidos/nuevos']" class="admin btn btn-danger col-sm-12 col-md-4 col-xl-4 opciones text-center align-self-start h-md-100"><i class="fas fa-user-cog"></i><br><p>Administracion</p></a>
-            <button class="cocina btn btn-info col-sm-12 col-md-4 col-xl-4 opciones text-center align-self-sm-start align-self-xl-end h-md-100"><i class="fas fa-pizza-slice"></i> <i class="fas fa-hamburger"></i><br><p>Cocina</p></button>
-            <button class="delivery btn btn-success col-sm-12 col-md-4 col-xl-4 opciones text-center align-self-start h-md-100"><i class="fas fa-motorcycle"></i><br><p>Delivery</p></button>
+            <button [routerLink]="['/admin/pedidos/nuevos']" class="admin btn btn-danger col-sm-12 col-md-4 col-xl-4 opciones text-center align-self-start h-md-100"><i class="fas fa-user-cog"></i><br><p>Administracion</p></button>
+            <button [routerLink]="['/cocina']" class="cocina btn btn-info col-sm-12 col-md-4 col-xl-4 opciones text-center align-self-sm-start align-self-xl-end h-md-100"><i class="fas fa-pizza-slice"></i> <i class="fas fa-hamburger"></i><br><p>Cocina</p></button>
+            <button [routerLink]="['/delivery']" class="delivery btn btn-success col-sm-12 col-md-4 col-xl-4 opciones text-center align-self-start h-md-100"><i class="fas fa-motorcycle"></i><br><p>Delivery</p></button>
             <i class="fas fa-cog d-none d-sm-none d-xl-block" id="icono-settings"></i>   
         </div>
         
