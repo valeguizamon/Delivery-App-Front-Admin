@@ -11,11 +11,12 @@ import { ManufacturadosComponent } from './secciones/manufacturados/manufacturad
 import { ModalrubroartComponent } from './secciones/rubros/modales/modalrubroart/modalrubroart.component';
 import { ModalrubrogenComponent } from './secciones/rubros/modales/modalrubrogen/modalrubrogen.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ConfigComponent } from './secciones/configuracion/config.component';
 
 
 
 @NgModule({
-  declarations: [AdminComponent, UsuariosComponent, RubrosComponent, InsumosComponent, ManufacturadosComponent, ModalrubroartComponent,ModalrubrogenComponent],
+  declarations: [AdminComponent, UsuariosComponent, RubrosComponent, InsumosComponent, ManufacturadosComponent, ModalrubroartComponent,ModalrubrogenComponent, ConfigComponent],
   imports: [
   
     CommonModule,

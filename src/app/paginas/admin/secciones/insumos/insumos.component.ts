@@ -132,7 +132,7 @@ export class InsumosComponent implements OnInit {
     }
   }
 
-  //reiniciar formulario
+  //-----------RESET FORMULARIO------//
   resetForm() {
     this.servicio.setNull();
     this.urlPreview = '';

@@ -31,7 +31,6 @@
             </h5>
             <p>{{pedido.domicilio}}</p>
             <p>(261)-1552032131</p>
-            <button class="btn btn-secondary btn-block btnDemorar" (click)="demorarPedido(pedido._id)"><i class="fas fa-clock"></i> Demorar 10"</button>
         </div>
         <div class="col-md-7 d-flex align-items-left flex-column px-3 pt-4">
             <h5 class="align-self-center">Detalle</h5>
@@ -56,7 +55,7 @@
             
         </div>
         <div class="col-md-12 d-flex justify-content-end pr-5 pb-3">
-            <button class="btn  btn-outline-danger rounded-pill d-block mx-2">Cancelar</button>
+            <button class="btn  btn-outline-danger rounded-pill d-block mx-2" (click)="demorarPedido(pedido._id)">Demorar 10"</button>
             <button class="btn  btn-outline-info rounded-pill d-block mx-2" (click)="acceptPedido(pedido._id)">Listo</button>
         </div>
       </div>
