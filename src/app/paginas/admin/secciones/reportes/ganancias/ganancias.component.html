@@ -1,0 +1,71 @@
+<div class="container-fluid ">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="" *ngIf="ganancia$ | async as ganancia; else load">
+        <div class="card">
+          <div class="card-header bg-dark">
+            <h4 class="text-white text-center">
+              Ganancia por periodo de tiempo.
+            </h4>
+          </div>
+          <div class="card-body">
+            <div class="col-md-12 justify-content-center mb-2">
+              <div class="form-check">
+                <input [(ngModel)]="allTime" (ngModelChange)="changeAllTime()" class="form-check-input" type="checkbox" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                  Todo los tiempos
+                </label>
+              </div>
+            </div>
+            <br>
+            <div class="col-md-12 row d-flex justify-content-between">
+              <div class="input-group col-md-6">
+                <span class="input-group-text" id="basic-addon1">Fecha Desde</span>
+                <input [(ngModel)]="desde" type="datetime-local" class="form-control" [disabled]="allTime">
+              </div>
+              <div class="input-group col-md-6">
+                <span class="input-group-text" id="basic-addon1">Fecha Hasta</span>
+                <input [(ngModel)]="hasta" type="datetime-local" class="form-control" [disabled]="allTime">
+              </div>
+              <div class="col-md-12 mt-4 d-flex justify-content-center">
+                <button type="button" [ngClass]="{disabled : allTime}" class="btn btn-primary" [disabled]="allTime" (click)="changeFecha()">Aplicar Fechas</button>
+              </div>
+            </div>
+            <table class="table table-striped mt-4" id="table">
+              <thead>
+                <tr *ngIf="desde && hasta">
+                  <th>{{desde}}</th>
+                  <th>HASTA</th>
+                  <th>{{hasta}}</th>
+                </tr>
+                <tr>
+                  <th>Total de Venta</th>
+                  <th>Total de Costo</th>
+                  <th>Ganancia</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor='let ganancia of ganancia'>
+                  <td class="table-primary">{{ganancia.totalVenta}}$</td>
+                  <td class="table-danger">{{ganancia.totalCosto}}$</td>
+                  <td class="table-success">{{ganancia.totalGanancia}}$</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="alert alert-danger" role="alert" *ngIf="error">
+              {{errorMsg}}
+            </div>
+          </div>
+        </div>
+        <div class="d-grid gap-2 d-md-flex justify-content-center">
+          <button type="button" class="btn btn-success btn-lg" [disabled]="ganancia.length == 0" (click)="saveExcel()">Guardar en Excel</button>
+        </div>
+      </div>
+      <ng-template #load>
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,91 @@
+<div class="container-fluid ">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="" *ngIf="ingresos$ | async as ingresos; else load">
+        <div class="card">
+          <div class="card-header bg-dark">
+            <h4 class="text-white text-center">
+              Ingresos por periodo de tiempo mensual/diario
+            </h4>
+          </div>
+          <div class="card-body">
+            <div class="col-md-12 justify-content-center mb-2">
+              <div class="form-check">
+                <input [(ngModel)]="allTime" (ngModelChange)="changeAllTime()" class="form-check-input" type="checkbox" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                  Todo los tiempos
+                </label>
+              </div>
+            </div>
+            <br>
+            <div class="col-md-12 row d-flex justify-content-between">
+              <div class="input-group col-md-6">
+                <span class="input-group-text" id="basic-addon1">Fecha Desde</span>
+                <input [(ngModel)]="desde" type="datetime-local" class="form-control" [disabled]="allTime">
+              </div>
+              <div class="input-group col-md-6">
+                <span class="input-group-text" id="basic-addon1">Fecha Hasta</span>
+                <input [(ngModel)]="hasta" type="datetime-local" class="form-control" [disabled]="allTime">
+              </div>
+              <div class="col-md-12 mt-4 d-flex justify-content-center">
+                <button type="button" [ngClass]="{disabled : allTime}" class="btn btn-primary" [disabled]="allTime" (click)="changeFecha()">Aplicar Fechas</button>
+              </div>
+            </div>
+            <div class="col-md-6 mt-2 mb-5">
+              <h6>¿Agrupar Mensualmente?</h6>
+              <div class="form-check form-check-inline">
+                <input [(ngModel)]="mensual" (ngModelChange)="changeMensual($event)" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="si">
+                <label class="form-check-label" for="inlineRadio2">Si</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input [(ngModel)]="mensual" (ngModelChange)="changeMensual($event)" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="no">
+                <label class="form-check-label" for="inlineRadio2">No</label>
+              </div>
+            </div>
+            <nav aria-label="Page navigation example">
+              <ul class="pagination justify-content-center">
+                <li class="page-item"><button type="button" class="btn btn-primary" [ngClass]="{disabled : ingresos.isFirst}" [disabled]="ingresos.isFirst" (click)="prev()">Anterior</button></li>
+                <li class="page-item"><button type="button" class="btn btn-primary" [ngClass]="{disabled : ingresos.isLast}" [disabled]="ingresos.isLast" (click)="next">Siguiente</button></li>
+              </ul>
+            </nav>
+
+            <table class="table table-striped" id="table">
+              <thead>
+                <tr *ngIf="desde && hasta">
+                  <th>{{desde}}</th>
+                  <th>HASTA</th>
+                  <th>{{hasta}}</th>
+                </tr>
+                <tr>
+                  <th>Año</th>
+                  <th>Mes</th>
+                  <th>Dia</th>
+                  <th>Ingreso</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor='let ingreso of ingresos.data'>
+                  <td>{{ingreso._id.anio}}</td>
+                  <td>{{ingreso._id.mes}}</td>
+                  <td>{{ingreso._id.dia ? ingreso._id.dia : '//' }}</td>
+                  <td class="table-success">{{ingreso.ingreso}} $</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="alert alert-danger" role="alert" *ngIf="error">
+              {{errorMsg}}
+            </div>
+          </div>
+        </div>
+        <div class="d-grid gap-2 d-md-flex justify-content-center">
+          <button type="button" class="btn btn-success btn-lg" [disabled]="ingresos.data.length == 0" (click)="saveExcel()">Guardar en Excel</button>
+        </div>
+      </div>
+      <ng-template #load>
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden"></span>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,79 @@
+<div class="container-fluid ">
+  <div class="row">
+    <div class="col-md-12"  *ngIf="pedidos$ | async as pedidos; else load">
+        <div class="card">
+          <div class="card-header bg-dark">
+            <h4 class="text-white text-center">
+              Pedidos agrupados en un periodo de tiempo por CLIENTE.
+            </h4>
+          </div>
+          <div class="card-body">
+            <div class="col-md-12 justify-content-center mb-2">
+              <div class="form-check">
+                <input [(ngModel)]="allTime" (ngModelChange)="changeAllTime()" class="form-check-input" type="checkbox" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                  Todo los tiempos
+                </label>
+              </div>
+            </div>
+            <br>
+            <div class="col-md-12 row d-flex justify-content-between">
+              <div class="input-group col-md-6">
+                <span class="input-group-text" id="basic-addon1">Fecha Desde</span>
+                <input [(ngModel)]="desde" type="datetime-local" class="form-control" [disabled]="allTime">
+              </div>
+              <div class="input-group col-md-6">
+                <span class="input-group-text" id="basic-addon1">Fecha Hasta</span>
+                <input [(ngModel)]="hasta" type="datetime-local" class="form-control" [disabled]="allTime">
+              </div>
+              <div class="col-md-12 mt-4 d-flex justify-content-center">
+                <button type="button" [ngClass]="{disabled : allTime}" class="btn btn-primary" [disabled]="allTime" (click)="changeFecha()">Aplicar Fechas</button>
+              </div>
+            </div>
+            <nav aria-label="Page navigation example">
+              <ul class="pagination justify-content-center mt-4">
+                <li class="page-item"><button type="button" class="btn btn-primary" [ngClass]="{disabled : pedidos.isFirst}" [disabled]="pedidos.isFirst" (click)="prev()">Anterior</button></li>
+                <li class="page-item"><button type="button" class="btn btn-primary" [ngClass]="{disabled : pedidos.isLast}" [disabled]="pedidos.isLast" (click)="next">Siguiente</button></li>
+              </ul>
+            </nav>
+            <table class="table table-striped mt-4" id="table">
+              <thead>
+                <tr *ngIf="desde && hasta">
+                  <th>{{desde}}</th>
+                  <th>HASTA</th>
+                  <th>{{hasta}}</th>
+                </tr>
+                <tr>
+                  <th>ID Cliente</th>
+                  <th>Total</th>
+                  <th>Fecha</th>
+                  <th>Tipo Envio</th>
+                  <th>Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor='let pedido of pedidos.data'>
+                  <td class="table-primary">{{pedido.Cliente.firebase_id}}</td>
+                  <td class="table-primary">{{pedido.total}}$</td>
+                  <td class="table-primary">{{pedido.fecha}}</td>
+                  <td class="table-primary">{{pedido.tipoEnvio == 1 ? 'Online' : 'Presencial'}}</td>
+                  <td class="table-primary">{{pedido.estado}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="alert alert-danger" role="alert" *ngIf="error">
+              {{errorMsg}}
+            </div>
+          </div>
+        </div>
+        <div class="d-grid gap-2 d-md-flex justify-content-center">
+          <button type="button" class="btn btn-success btn-lg" [disabled]="pedidos.data.length == 0" (click)="saveExcel()">Guardar en Excel</button>
+        </div>
+    </div>
+    <ng-template #load>
+    <div class="spinner-border mx-auto" role="status">
+      <span class="visually-hidden"></span>
+    </div>
+  </ng-template>
+  </div>
+</div>
