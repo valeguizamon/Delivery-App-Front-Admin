@@ -32,14 +32,37 @@ export class IngresosComponent implements OnInit {
 
   public ingresos$: Observable<any[]>;
 
+  public configChar = {
+    view: [750,600],
+    results: [],
+    scheme: "natural",
+    label: true,
+    legend: true,
+    axis: true
+  };
+
+
   constructor(private reporteSvc: ReportesService) { }
 
   ngOnInit(): void {
     this.getData()
   }
+
+  private updateGraphicData(ingresos$: Observable<any>) {
+    ingresos$.subscribe( response => {
+      this.configChar.results = response.data.map( element => {
+        console.log(element);
+        let name = element._id.dia? `${element._id.dia}/${element._id.mes}/${element._id.anio}` : `${element._id.mes}/${element._id.anio}`;
+        return { name, value: element.ingreso };
+      });
+    });
+  }
+
   public getData(){
     this.ingresos$ = this.reporteSvc.getIngresosPorPeriodo(this.fecha,this.mensual,this.skip,this.limit);
+    this.updateGraphicData(this.ingresos$);
   }
+  
   public changeMensual(e:Event){
     console.log(this.mensual);
     this.getData()

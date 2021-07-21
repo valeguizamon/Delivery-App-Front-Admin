@@ -26,14 +26,35 @@ export class UsuariopedidosComponent implements OnInit {
   public skip: number = 0;
 
   public limit: number = 5;
+
+  public configChar = {
+    results: [],
+    scheme: "natural",
+    label: true,
+    legend: true,
+    axis: true
+  };
+
+
   constructor(private reporteSvc: ReportesService) { }
 
   ngOnInit(): void {
-    this.getData()
+    this.getData();
+    
+  }
+
+
+  private updateGraphicData(pedidos$: Observable<any>) {
+    pedidos$.subscribe( response => {
+      this.configChar.results = response.data.map( element => {
+        return { name: element.Cliente.firebase_id, value: element.total};
+      });
+    });
   }
 
   getData(){
     this.pedidos$ = this.reporteSvc.getPedidosByUser(this.fecha,this.skip,this.limit);
+    this.updateGraphicData(this.pedidos$);
   }
 
   public changeAllTime(e:Event){

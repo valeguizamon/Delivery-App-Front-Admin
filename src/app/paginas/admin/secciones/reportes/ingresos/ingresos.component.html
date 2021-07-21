@@ -9,6 +9,21 @@
             </h4>
           </div>
           <div class="card-body">
+            <div class="col-md-12">
+              <ngx-charts-bar-vertical
+                [view]="configChar.view"
+                [results]="configChar.results"
+                [scheme]="configChar.scheme"
+                [legend]="configChar.legend"
+                [label]="configChar.label"
+                legendTitle="Ingresos"
+                [xAxis]="configChar.axis"
+                [yAxis]="configChar.axis"
+              >
+              </ngx-charts-bar-vertical>
+            </div>
+          </div>
+          <div class="card-body">
             <div class="col-md-12 justify-content-center mb-2">
               <div class="form-check">
                 <input [(ngModel)]="allTime" (ngModelChange)="changeAllTime()" class="form-check-input" type="checkbox" id="flexCheckDefault">
@@ -76,9 +91,9 @@
               {{errorMsg}}
             </div>
           </div>
-        </div>
-        <div class="d-grid gap-2 d-md-flex justify-content-center">
-          <button type="button" class="btn btn-success btn-lg" [disabled]="ingresos.data.length == 0" (click)="saveExcel()">Guardar en Excel</button>
+          <div class="card-footer justify-content-center">
+            <button type="button" class="btn btn-success" [disabled]="ingresos.data.length == 0" (click)="saveExcel()">Guardar en Excel</button>
+          </div>
         </div>
       </div>
       <ng-template #load>

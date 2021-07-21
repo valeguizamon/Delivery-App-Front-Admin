@@ -17,6 +17,7 @@ import { GananciasComponent } from './secciones/reportes/ganancias/ganancias.com
 import { UsuariopedidosComponent } from './secciones/reportes/usuariopedidos/usuariopedidos.component';
 import { ConfigComponent } from './secciones/configuracion/config.component';
 
+import { NgxChartsModule } from "@swimlane/ngx-charts";
 
 
 
@@ -29,7 +30,8 @@ import { ConfigComponent } from './secciones/configuracion/config.component';
     CommonModule,
     AdminRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxChartsModule
   ]
 })
 export class AdminModule { }

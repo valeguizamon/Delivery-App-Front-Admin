@@ -21,6 +21,16 @@ export class GananciasComponent implements OnInit {
   public desde:any = null;
 
   public hasta:any = null;
+  
+  public configChar = {
+    view: [750,600],
+    results: [],
+    scheme: "natural",
+    label: true,
+    legend: true,
+    axis: true
+  };
+
 
   constructor(private reporteSvc: ReportesService) { }
 
@@ -28,8 +38,22 @@ export class GananciasComponent implements OnInit {
     this.getGanancia()
   }
 
+
+  private updateGraphicData(ganancia$: Observable<any>) {
+    ganancia$.subscribe( response => {
+      if(response.length) {
+        this.configChar.results = [
+          { name: "Venta", value: response[0].totalVenta},
+          { name: "Costo", value: response[0].totalCosto},
+          { name: "Ganancia", value: response[0].totalGanancia}
+        ];
+      }
+    });
+  }
+
   public getGanancia(){
     this.ganancia$ = this.reporteSvc.getGananciasPorPeriodo(null);
+    this.updateGraphicData(this.ganancia$);
   }
 
   public changeAllTime(e:Event){
@@ -42,7 +66,8 @@ export class GananciasComponent implements OnInit {
   public changeFecha(){
     if(this.desde && this.hasta){
       if(this.desde < this.hasta){
-        this.ganancia$ = this.reporteSvc.getGananciasPorPeriodo({fecha:{desde:this.desde,hasta:this.hasta}})
+        this.ganancia$ = this.reporteSvc.getGananciasPorPeriodo({fecha:{desde:this.desde,hasta:this.hasta}});
+        this.updateGraphicData(this.ganancia$);
       }else{
         this.error = true;
         this.errorMsg = "La fecha DESDE tiene que ser menor que la fecha HASTA"

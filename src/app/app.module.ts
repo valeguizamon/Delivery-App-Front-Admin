@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,17 +15,17 @@ import { AngularFireDatabaseModule} from '@angular/fire/database';
 import { HttpClientModule} from "@angular/common/http";
 import { FormsModule } from '@angular/forms';
 import { AngularFireStorageModule} from '@angular/fire/storage'
+
+
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    FooterComponent,
-    
-   
-    
+    FooterComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     AppRoutingModule,
     NavbarModule,
@@ -32,8 +33,7 @@ import { AngularFireStorageModule} from '@angular/fire/storage'
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireStorageModule,
-    HttpClientModule,
-    
+    HttpClientModule
   ],
   providers: [AngularFirestore],
   bootstrap: [AppComponent]

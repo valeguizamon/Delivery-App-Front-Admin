@@ -26,6 +26,15 @@ export class ComidaComponent implements OnInit {
 
   public skip: number = 0;
 
+  public configChar = {
+    view: [750,600],
+    results: [],
+    scheme: "natural",
+    label: true,
+    legend: true,
+    axis: true
+  };
+
   constructor(private reporteSvc: ReportesService) { }
 
   ngOnInit(): void {
@@ -33,20 +42,30 @@ export class ComidaComponent implements OnInit {
   }
 
   public getData(){
-    this.comida$ = this.reporteSvc.getComidaRanking(null)
+    this.comida$ = this.reporteSvc.getComidaRanking(null);
+    this.updateGraphicData(this.comida$);
+  }
+
+  private updateGraphicData(comida$: Observable<any>) {
+    comida$.subscribe( response => {
+      this.configChar.results = response.map( element => {
+        return { name: element.denominacion, value: element.cantidadComprado };
+      });
+    });
   }
 
   public changeAllTime(e:Event){
     if(this.allTime){
       this.desde = null;
       this.hasta = null;
-      this.getData()
+      this.getData();
     }
   }
   public changeFecha(){
     if(this.desde && this.hasta){
       if(this.desde < this.hasta){
-        this.comida$ = this.reporteSvc.getComidaRanking({fecha:{desde:this.desde,hasta:this.hasta}})
+        this.comida$ = this.reporteSvc.getComidaRanking({fecha:{desde:this.desde,hasta:this.hasta}});
+        this.updateGraphicData(this.comida$);
       }else{
         this.error = true;
         this.errorMsg = "La fecha DESDE tiene que ser menor que la fecha HASTA"

@@ -24,7 +24,7 @@ const routes: Routes = [
     { path: 'comida',component: ComidaComponent},
     { path: 'ganancias',component: GananciasComponent},
     { path: 'ingresos',component: IngresosComponent},
-    { path: 'usuario/pedidos',component: UsuariopedidosComponent}
+    { path: 'usuario/pedidos',component: UsuariopedidosComponent},
     { path: 'config', component: ConfigComponent}
   ]}
 

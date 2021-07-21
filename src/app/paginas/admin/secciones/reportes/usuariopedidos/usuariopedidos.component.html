@@ -8,6 +8,21 @@
             </h4>
           </div>
           <div class="card-body">
+            <div class="col-md-12">
+              <ngx-charts-bar-vertical
+                [results]="configChar.results"
+                [scheme]="configChar.scheme"
+                [legend]="configChar.legend"
+                legendPosition="below"
+                [label]="configChar.label"
+                legendTitle="Ingresos"
+                [xAxis]="configChar.axis"
+                [yAxis]="configChar.axis"
+              >
+              </ngx-charts-bar-vertical>
+            </div>
+          </div>
+          <div class="card-body">
             <div class="col-md-12 justify-content-center mb-2">
               <div class="form-check">
                 <input [(ngModel)]="allTime" (ngModelChange)="changeAllTime()" class="form-check-input" type="checkbox" id="flexCheckDefault">
@@ -32,7 +47,7 @@
             </div>
             <nav aria-label="Page navigation example">
               <ul class="pagination justify-content-center mt-4">
-                <li class="page-item"><button type="button" class="btn btn-primary" [ngClass]="{disabled : pedidos.isFirst}" [disabled]="pedidos.isFirst" (click)="prev()">Anterior</button></li>
+                <li class="page-item"><button type="button" class="btn btn-primary mr-5" [ngClass]="{disabled : pedidos.isFirst}" [disabled]="pedidos.isFirst" (click)="prev()">Anterior</button></li>
                 <li class="page-item"><button type="button" class="btn btn-primary" [ngClass]="{disabled : pedidos.isLast}" [disabled]="pedidos.isLast" (click)="next">Siguiente</button></li>
               </ul>
             </nav>
@@ -65,9 +80,9 @@
               {{errorMsg}}
             </div>
           </div>
-        </div>
-        <div class="d-grid gap-2 d-md-flex justify-content-center">
-          <button type="button" class="btn btn-success btn-lg" [disabled]="pedidos.data.length == 0" (click)="saveExcel()">Guardar en Excel</button>
+          <div class="card-footer">
+            <button type="button" class="btn btn-success" [disabled]="pedidos.data.length == 0" (click)="saveExcel()">Guardar en Excel</button>
+          </div>
         </div>
     </div>
     <ng-template #load>
