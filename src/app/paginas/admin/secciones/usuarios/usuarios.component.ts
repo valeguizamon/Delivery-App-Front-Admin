@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from 'src/app/models/User';
 import { UsuariosService } from 'src/app/servicios/usuarios.service';
-
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
 @Component({
   selector: 'app-usuarios',
   templateUrl: './usuarios.component.html',
@@ -9,15 +10,43 @@ import { UsuariosService } from 'src/app/servicios/usuarios.service';
 })
 export class UsuariosComponent implements OnInit {
 
-  constructor(private userService: UsuariosService) { }
+  displayedColumns: string [] = ['#','Username','Email','DNI','Telefono','Fecha Nac.','Sexo','Domicilio']
+  pageSizeOptions = [2,4,6]
+  dataSource = new MatTableDataSource<User>();
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
 
-  public users: User[];
+  public users = []
+  public textSearch="";
+  public filtroSelected= "username";
+  public totalCount = 0;
+  public pageCount = 5;
+  public currentPage = 0;
+  constructor(private userService: UsuariosService) { }
+  
   ngOnInit(): void {
     this.getUsers()
   }
-
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
   getUsers(){
-    this.userService.getAllUsers().subscribe(users => this.users = users)
+    this.userService.getAllUsers().subscribe((users)=>{
+      this.users= users
+      this.dataSource.data = this.users
+    })
   }
 
+  onPageChange(event: PageEvent){
+    this.currentPage = event.pageIndex
+    this.pageCount = event.pageSize
+    this.totalCount = event.length
+  }
+
+  search(value) {
+    if(value.length>=3) {
+      this.dataSource.data = this.userService.getFiltered(this.users,value)
+    } else {
+      this.dataSource.data = this.users
+    }
+  }
 }

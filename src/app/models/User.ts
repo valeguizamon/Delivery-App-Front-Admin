@@ -13,7 +13,7 @@ export class User {
     nombre?: string
     online?: boolean
     photoURL?: string
-    role: number
+    role: string
 
 
 }

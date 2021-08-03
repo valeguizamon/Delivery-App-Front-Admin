@@ -18,6 +18,8 @@ import { UsuariopedidosComponent } from './secciones/reportes/usuariopedidos/usu
 import { ConfigComponent } from './secciones/configuracion/config.component';
 
 import { NgxChartsModule } from "@swimlane/ngx-charts";
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 
@@ -31,7 +33,9 @@ import { NgxChartsModule } from "@swimlane/ngx-charts";
     AdminRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxChartsModule
-  ]
+    NgxChartsModule,
+    MatTableModule,
+    MatPaginatorModule
+  ],
 })
 export class AdminModule { }

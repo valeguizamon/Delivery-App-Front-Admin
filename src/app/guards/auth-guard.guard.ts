@@ -17,7 +17,7 @@ export class AuthGuardGuard implements CanActivate {
     .pipe(map(authState => !!authState))
     .pipe(tap(auth => {
       if (!auth) {
-        this.router.navigate(['/usuario/login']);
+        this.router.navigate(['/home']);
       }
     }));
   }
