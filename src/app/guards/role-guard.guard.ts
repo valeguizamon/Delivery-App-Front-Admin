@@ -20,6 +20,13 @@ export class RoleGuardGuard implements CanActivate {
   ): Promise<boolean> {
     const roles = route.data.role;
     let user = await this.auth.getUser();
+    if(!user?.role) {
+      alert('Esta cuenta no tiene los permisos para acceder a este panel de administracion.')
+      this.auth.logOut()
+      this.router.navigate(['/home'])
+      window.location.reload()
+      return false
+    }
     let permission = roles.includes(user.role)
     if(permission) {
       return true;

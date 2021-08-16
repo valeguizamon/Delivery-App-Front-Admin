@@ -1,1 +1,57 @@
-<p>config works!</p>
+<div class="main-section">
+    <span class="main-section-title">General</span>
+    <div class="col-md-12">
+        <form class="row">
+            <div class="form-group col-md-4">
+                <label for="">Cantidad de Cocineros</label>
+                <input class="form-control" type="text">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="">Email</label>
+                <input type="email" class="form-control">
+            </div>
+            <div class=" col-md-4 row">
+                <div class="form-group col-md-6">
+                    <label for="">Latitud</label>
+                    <input type="text" class="form-control">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="">Longitud</label>
+                    <input type="text" class="form-control">
+                </div>
+            </div>
+            <button class="btn btn-success btn-save mx-auto d-block">Guardar</button>
+        </form>
+        
+    </div>
+</div>
+<div class="main-section mt-5">
+    <span class="main-section-title">MercadoPago</span>
+    <div class="form-group col-md-8 mx-auto">
+        <label for="">Token: </label>
+        <input type="text" class="form-control">
+    </div>
+    <button class="btn btn-success btn-save mx-auto d-block">Guardar</button>
+</div>
+<div class="main-section mt-5">
+    <span class="main-section-title">Registro de Personal</span>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="">Email</label>
+            <input type="email" class="form-control">
+        </div>
+        <div class="form-group col-md-4">
+            <label for="">Contraseña</label>
+            <input type="password" class="form-control">
+        </div>
+        <div class="form-group col-md-4">
+            <label for="">Rol</label>
+            <select name="" id="" class="form-control">
+                <option *ngFor="let rol of ROLES" [value]="rol" >{{rol}}</option>
+            </select>
+        </div>
+        <button class="btn btn-save btn-info mx-auto d-block">Registrar</button>
+    
+    </div>
+    
+</div>

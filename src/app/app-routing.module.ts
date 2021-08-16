@@ -22,7 +22,10 @@ const routes: Routes = [
   },
   {
     path: 'panel',
-    canActivate: [AuthGuardGuard],
+    canActivate: [AuthGuardGuard,RoleGuardGuard],
+    data: {
+      role: [ROLES.admin,ROLES.cocinero,ROLES.delivery]
+    },
     loadChildren: () =>
       import('./paginas/panel/panel.module').then((m) => m.PanelModule),
   },
