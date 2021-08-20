@@ -29,7 +29,7 @@ export class NuevosComponent implements OnInit {
   
   //Actualizar el panel de los pedidos
   refresh(){
-    console.log("actualizando")
+    // console.log("actualizando")
     this.getNewPedidos()
   }
 
@@ -41,7 +41,7 @@ export class NuevosComponent implements OnInit {
   acceptPedido(id){
     this.servicio.acceptPedido(id,{"status":State.ESPERA}).subscribe(
       (res)=>{
-        console.log("respuesta",res)
+        // console.log("respuesta",res)
         this.getNewPedidos()
       },
       (err)=> console.log("Error",err)
@@ -50,7 +50,7 @@ export class NuevosComponent implements OnInit {
   cancelPedido(id){
     this.servicio.cancelPedido(id,{"motivo":this.motivoCancel}).subscribe(
       (res) => {
-        console.log("respuesta",res)
+        // console.log("respuesta",res)
         this.getNewPedidos()
       },
       (err) => console.log("Error",err)

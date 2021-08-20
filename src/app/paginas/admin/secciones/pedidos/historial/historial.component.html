@@ -7,13 +7,13 @@
     <div class=" item mx-5 my-3 bg-dark rounded-lg" *ngFor="let pedido of pedidos;index as ind">
       <div class=" item-button d-flex  align-items-center text-white " [attr.id]="'heading'+ind" data-toggle="collapse" [attr.data-target]="'#collapse'+ind" aria-expanded="false" aria-controls="collapseOne" >
         <div class="user mx-3 d-flex flex-column  ">
-            <p class="secundario">Malvinas argentinas 1451</p>
-            <p class="text-success">Mario Benito : {{ind}}</p>
+            <p class="secundario">{{pedido.envio}}</p>
+            <p class="text-success">{{pedido.cliente.nombre}}</p>
         </div>
-        <ng-container *ngIf="pedido.estado == 'entregado';else cancelado">
+        <ng-container *ngIf="pedido.estado == 'facturado';else cancelado">
             <div class="estado mx-3 d-flex flex-column " >
                 <p>Entregado a las: {{pedido.horaAccepted}}</p>
-                <p class="text-success">PEDIDO ENTREGADO <i class="fas fa-check-circle"></i></p>
+                <p class="text-success">PEDIDO Facturado <i class="fas fa-check-circle"></i></p>
             </div>
             <div class="estado mx-3 d-flex flex-column align-items-center">
                 <p>Total:</p>
@@ -35,12 +35,11 @@
   
       <div [attr.id]="'collapse'+ind" class="descripcion collapse row no-gutters text-white wrapp" [attr.aria-labelledby]="'heading'+ind" data-parent="#accordionExample">
         <div class="datos col-md-5 d-flex align-items-left flex-column pl-5 pt-4 mb-3">
-            <h5>
-                Marcelo Benito
-            </h5>
-            <p>{{pedido.domicilio}}</p>
-            <p>(261)-1552032131</p>
-            <ng-container *ngIf="pedido.estado =='cancelado'">
+            <h4>Cliente : {{pedido.cliente.nombre}}</h4>
+            <p *ngIf="pedido.envio === 'Envio a domicilio'">Domicilio : {{pedido.domicilio}}</p>
+            <p>Telefono : {{pedido.cliente.telefono}}</p>
+
+            <ng-container *ngIf="pedido.estado == 'cancelado'">
                 <h6 class="text-danger">Motivo de Cancelación:</h6>
                 <span>{{pedido.motivoCancel}}</span>
             </ng-container>

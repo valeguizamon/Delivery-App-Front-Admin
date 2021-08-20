@@ -1,13 +1,12 @@
 <!--Contenido y tabla con datos-->
-
 <div class="container fluid">
     <div class="row">
         <div class="col-md-12">
-            <div class="card mt-3">
-                <div class="card-header bg-info">
-                    <h4 class="text-white text-center">
+            <div class="card">
+                <div class="card-header bg-dark">
+                    <h1 class="text-white text-center">
                         Artículos de Insumo
-                    </h4>
+                    </h1>
                 </div>
                 <div class="card-body" *ngIf="insumos;else noItems">
                     <table class="table table-striped" >
@@ -77,13 +76,11 @@
 <div class="modal fade" id="modalInsumo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <h5 class="bg-info text-white text-center">Artículos</h5>
+            <h1 class="bg-info text-white text-center">Artículos</h1>
             <div class="modal-header">
-                
-                
-                <h5 class="modal-title" id="exampleModalLabel">
+                <h2 class="modal-title" id="exampleModalLabel">
                     {{!this.servicio.selected._id?'Nuevo Artículo':'Modificar Artículo'}}
-                </h5>
+                </h2>
                 <button #btnClose type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="resetForm()">
                     <span aria-hidden="true">&times;</span>
                 </button>

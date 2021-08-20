@@ -1,18 +1,19 @@
 <div class="container-fluid">
   <div class="card">
     <div class="card-header bg-dark text-center text-white">
-      <h3>Usuarios</h3>
+      <h2>Usuarios</h2>
     </div>
     <div class="card-body">
-      <div class="form-group col-md-5">
-        <div class="form-row">
-          <div class="form-group col-md-7">
-            <label for="search">Buscar</label>
-            <input type="text" class="form-control" name="search" (input)="search($event.target.value)">
+      <div class="form-group row">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">
+              <i class="fas fa-search"></i>
+            </span>
           </div>
+          <input type="search" class="form-control" name="search" (input)="search($event.target.value)" placeholder="Buscar . . .">
         </div>
       </div>
-    
       <table mat-table [dataSource]="dataSource">
         <ng-container matColumnDef="#">
           <th mat-header-cell *matHeaderCellDef>No.</th>
@@ -20,31 +21,17 @@
         </ng-container>
         <ng-container matColumnDef="Username">
           <th mat-header-cell *matHeaderCellDef>Nombre</th>
-          <td mat-cell *matCellDef="let user">{{user.nombre?user.nombre:'desconocido'}}</td>
+          <td mat-cell *matCellDef="let user">{{user.nombre?user.nombre:'Sin Datos'}}</td>
         </ng-container>
         <ng-container matColumnDef="Email">
           <th mat-header-cell *matHeaderCellDef>Email</th>
           <td mat-cell *matCellDef="let user">{{ user.email }}</td>
         </ng-container>
-        <ng-container matColumnDef="DNI">
-          <th mat-header-cell *matHeaderCellDef>DNI</th>
-          <td mat-cell *matCellDef="let user">
-            {{ user.dni ? user.dni : "indefinido" }}
-          </td>
-        </ng-container>
         <ng-container matColumnDef="Telefono">
           <th mat-header-cell *matHeaderCellDef>Telefono</th>
           <td mat-cell *matCellDef="let user">
-            {{ user.telefono ? user.telefono : "indefinido" }}
+            {{ user.telefono ? user.telefono : "Sin Datos" }}
           </td>
-        </ng-container>
-        <ng-container matColumnDef="Fecha Nac.">
-          <th mat-header-cell *matHeaderCellDef>Fecha Nac.</th>
-          <td mat-cell *matCellDef="let user">101095</td>
-        </ng-container>
-        <ng-container matColumnDef="Sexo">
-          <th mat-header-cell *matHeaderCellDef>Sexo</th>
-          <td mat-cell *matCellDef="let user">Masculino</td>
         </ng-container>
         <ng-container matColumnDef="Domicilio">
           <th mat-header-cell *matHeaderCellDef>Domicilio</th>
@@ -52,9 +39,15 @@
             {{
               user.domicilio
                 ? user.domicilio.calle + " " + user.domicilio.numero
-                : "no"
+                : "Sin Datos"
             }}
           </td>
+        </ng-container>
+        <ng-container matColumnDef="Acciones">
+          <th mat-header-cell *matHeaderCellDef>Acciones</th>
+          <tr mat-cell *matCellDef="let user">
+            <button class="btn btn-warning" data-toggle="modal" data-target="#rolChange" (click)="editUser($event, user)">Rol</button>
+          </tr>
         </ng-container>
     
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -71,5 +64,7 @@
       </mat-paginator>
     </div>
   </div>
-  
 </div>
+
+<!-- Modal Rol Usuario -->
+<app-modal-rol [userData]="userProp"></app-modal-rol>

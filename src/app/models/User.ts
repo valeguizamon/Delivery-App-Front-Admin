@@ -14,6 +14,4 @@ export class User {
     online?: boolean
     photoURL?: string
     role: string
-
-
 }

@@ -1,14 +1,14 @@
 <div class="header-page text-info mt-5 mx-5 d-flex justify-content-between">
-    <h2>Pedidos para entregar</h2>
+    <h1>Pedidos para entregar</h1>
     <button class="refresh btn btn-secondary" (click)="refresh()" title="Actualizar"><i class="fas fa-sync-alt"></i></button>
-
 </div>
+<h3></h3>
 <div class="accordion" id="accordionExample" *ngIf="pedidos.length>0;else noPedidos">
     <div class=" item mx-5 my-3 bg-dark rounded-lg" *ngFor="let pedido of pedidos;index as ind">
       <div class=" item-button d-flex  align-items-center text-white " [attr.id]="'heading'+ind" data-toggle="collapse" [attr.data-target]="'#collapse'+ind" aria-expanded="false" aria-controls="collapseOne" >
         <div class="user mx-3 d-flex flex-column  ">
-            <p class="secundario">Malvinas argentinas 1451</p>
-            <p class="text-success">Mario Benito : {{ind}}</p>
+            <p class="secundario">{{pedido.envio}}</p>
+            <p class="text-success">{{pedido.cliente.nombre}}</p>
         </div>
         <div class="estado mx-3 d-flex flex-column ">
             <p>Finalizado a las:</p>
@@ -23,12 +23,10 @@
   
       <div [attr.id]="'collapse'+ind" class="descripcion collapse row no-gutters text-white wrapp" [attr.aria-labelledby]="'heading'+ind" data-parent="#accordionExample">
         <div class="datos col-md-5 d-flex align-items-left flex-column pl-5 pt-4">
-            <h5>
-                Marcelo Benito
-            </h5>
-            <p>Malvinas Argentinas 1451</p>
-            <p>(261)-1552032131</p>
-            <p><i class="far fa-credit-card"></i>  Pago: Efectivo</p>
+            <h4>Cliente : {{pedido.cliente.nombre}}</h4>
+            <p *ngIf="pedido.envio === 'Envio a domicilio'">Domicilio : {{pedido.domicilio}}</p>
+            <p>Telefono : {{pedido.cliente.telefono}}</p>
+            <!-- <p><i class="far fa-credit-card"></i>  Pago: Efectivo</p> -->
             <p><i class="far fa-clock"></i>  Finalizado a las : {{pedido.horaAccepted}}</p>
         </div>
         <div class="col-md-7 d-flex align-items-left flex-column px-3 pt-4">
@@ -54,7 +52,7 @@
             
         </div>
         <div class="col-md-12 d-flex justify-content-end pr-5 pb-3">
-            <button class="btn  btn-outline-danger rounded-pill d-block mx-2" data-toggle="modal" data-target="#cancelModal" (click)="preUpdateCancel(pedido._id)">No entregado</button>
+            <!-- <button class="btn  btn-outline-danger rounded-pill d-block mx-2" data-toggle="modal" data-target="#cancelModal" (click)="preUpdateCancel(pedido._id)">No entregado</button> -->
             <button class="btn  btn-outline-info rounded-pill d-block mx-2" (click)="markAsDelivered(pedido._id)">Entregado</button>
         </div>
       </div>
@@ -62,10 +60,10 @@
     
 </div>
 <ng-template #noPedidos>
-    <div class="noPedidos mx-auto text-white d-flex justify-content-center flex-column align-items-center mt-5">
+    <div class="noPedidos mx-auto d-flex justify-content-center flex-column align-items-center mt-5">
         <i class="fas fa-file-signature"></i>
         <p class="mt-3">No hay pedidos aún.</p>
     </div>
 </ng-template>
-
-<app-modalcancel (refresh)="refresh()" [idCancel]="idCancel"></app-modalcancel>
+<!-- Modal cancelar pedido -->
+<!-- <app-modalcancel (refresh)="refresh()" [idCancel]="idCancel"></app-modalcancel> -->

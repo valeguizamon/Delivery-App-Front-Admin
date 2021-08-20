@@ -1,6 +1,6 @@
     <!--Login-->
     <section id="login">
-        <div class="container mt-5">
+        <div class="container">
             <div class="row">
                 <div class="col-md-6 mx-auto">
                     <div class="card">
@@ -15,7 +15,7 @@
                                     <label for="email">
                                         Email
                                     </label>
-                                    <input type="email" class="form-control" formControlName="email" [class]="isValidField('email')" [(ngModel)]="email">
+                                    <input type="email" class="form-control" formControlName="email" [class]="isValidField('email')" [(ngModel)]="email" placeholder="employee@email.com">
                                     <div class="invalid-feedback">
                                         <span *ngIf="loginForm.get('email').errors?.pattern">
                                             Introduzca un email válido
@@ -27,7 +27,7 @@
                                     <label for="password">
                                        Password
                                     </label>
-                                    <input type="password" class="form-control" formControlName="password" [class]="isValidField('password')" [(ngModel)]="password">
+                                    <input type="password" class="form-control" formControlName="password" [class]="isValidField('password')" [(ngModel)]="password" placeholder="password">
                                     <div class="invalid-feedback">
                                         <span *ngIf="loginForm.get('password').errors?.required">
                                             Complete este campo

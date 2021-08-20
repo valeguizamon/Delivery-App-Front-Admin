@@ -1,0 +1,27 @@
+<div class="modal fade" id="rolChange" tabindex="-1" aria-labelledby="rolChangeLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title" id="rolChangeLabel">Cambiar Role</h1>
+          <button type="button" #btnClose class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="rolForm" novalidate (ngSubmit)='onSaveRol($event)'>
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="rol">Rol</label>
+                <select id="rol" class="form-control" formControlName="rol" name="rol">
+                  <option [value]="rolItem" *ngFor="let rolItem of rolesArray">{{rolItem}}</option>
+                </select>
+              </div>
+              <div class="form-group col-12">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

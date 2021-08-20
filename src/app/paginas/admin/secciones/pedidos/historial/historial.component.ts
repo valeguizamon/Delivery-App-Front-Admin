@@ -15,7 +15,7 @@ export class HistorialComponent implements OnInit {
   }
 
   getPedidos(){
-    this.servicio.getPedidosByState(State.CANCELADO).subscribe(
+    this.servicio.getPedidosByState("ALL").subscribe(
       (data)=>{
         this.pedidos = data;
       }
@@ -25,5 +25,4 @@ export class HistorialComponent implements OnInit {
   refresh(){
     this.getPedidos()
   }
-
 }

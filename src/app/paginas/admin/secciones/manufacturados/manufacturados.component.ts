@@ -1,15 +1,18 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { RubroGral } from 'src/app/models/RubroGral';
+import { NgForm } from '@angular/forms';
+
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+import { AngularFireStorage} from '@angular/fire/storage'
+
 import { ManufacturadosService } from 'src/app/servicios/manufacturados.service';
 import { RubroService } from 'src/app/servicios/rubros.service';
-import { RubrosartService } from 'src/app/servicios/rubrosart.service';
-import { AngularFireStorage} from '@angular/fire/storage'
-import { finalize } from 'rxjs/operators';
-import { Observable } from 'rxjs';
 import { InsumoService } from 'src/app/servicios/insumos.service';
+
+import { RubroGral } from 'src/app/models/RubroGral';
 import { Insumo } from 'src/app/models/Insumo';
-import { DetalleManu, Manufacturado } from 'src/app/models/Manufacturado';
-import { NgForm } from '@angular/forms';
+import { Manufacturado } from 'src/app/models/Manufacturado';
+
 
 
 @Component({
@@ -27,13 +30,19 @@ export class ManufacturadosComponent implements OnInit {
   public rubros : RubroGral[] = []
   public insumos: Insumo[] = []
   
-  public ingrediente={
+  public ingrediente = {
     cantidad: 0,
     ArtInsumo: '',
     vista: ''
-  }
-  public ingredientes= []
-  constructor(public rubroService:RubroService, public servicio: ManufacturadosService, private storage : AngularFireStorage, private insumoService: InsumoService) { }
+  };
+  public ingredientes = [];
+
+
+  constructor(
+    public rubroService:RubroService, public servicio: ManufacturadosService, 
+    private storage : AngularFireStorage, private insumoService: InsumoService, 
+    private matSnackBar: MatSnackBar
+  ) { }
 
   ngOnInit(): void {
     this.getAllManufacturados()
@@ -46,9 +55,7 @@ export class ManufacturadosComponent implements OnInit {
   getAllManufacturados(){
     this.servicio.getAll().subscribe(
       data=> {
-        console.log(data)
-        this.manufacturados = data
-        
+        this.manufacturados = data;
       },
       err=> console.log(err)
     )
@@ -166,8 +173,6 @@ export class ManufacturadosComponent implements OnInit {
     
     this.ingredientes = this.prepararParaEdit()
     this.urlPreview = this.servicio.selected.img
-
-    
   }
 
 
@@ -175,9 +180,7 @@ export class ManufacturadosComponent implements OnInit {
 
   async onSave(){
    
-      
       if(this.imgFile){
-        
         //en caso de edicion, se borra la imagen anterior del storage de firebase
         /*if(this.servicio.selected.img){
           let refImgAnterior = this.storage.refFromURL(this.servicio.selected.img)
@@ -194,20 +197,29 @@ export class ManufacturadosComponent implements OnInit {
       }
 
       this.servicio.selected.ArtManufactDet = this.prepararIngredientes()
-      console.log(this.servicio.selected)
+      // console.log(this.servicio.selected)
 
       //nuevo articulo
       if(!this.servicio.selected._id){
         this.servicio.post(this.servicio.selected).subscribe(()=>{
-          
-          alert('Articulo cargado correctamente')
+          this.matSnackBar.open('Creado con exito', "Accept" , {
+            duration: 5000,
+            horizontalPosition: 'right',
+            verticalPosition: 'bottom',
+            panelClass: 'btn-success'
+          });
           this.btnClose.nativeElement.click()
         })
       }
       //editar articulo
       else{
         this.servicio.put(this.servicio.selected._id, this.servicio.selected).subscribe(()=>{
-          alert('Articulo editado correctamente')
+          this.matSnackBar.open('Actualizado con exito', "Accept" , {
+            duration: 5000,
+            horizontalPosition: 'right',
+            verticalPosition: 'bottom',
+            panelClass: 'btn-success'
+          });
           this.btnClose.nativeElement.click()
         })
       }

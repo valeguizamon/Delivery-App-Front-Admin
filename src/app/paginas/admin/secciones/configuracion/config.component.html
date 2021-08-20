@@ -1,57 +1,92 @@
-<div class="main-section">
-    <span class="main-section-title">General</span>
-    <div class="col-md-12">
-        <form class="row">
-            <div class="form-group col-md-4">
-                <label for="">Cantidad de Cocineros</label>
-                <input class="form-control" type="text">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="">Email</label>
-                <input type="email" class="form-control">
-            </div>
-            <div class=" col-md-4 row">
-                <div class="form-group col-md-6">
-                    <label for="">Latitud</label>
-                    <input type="text" class="form-control">
+<section id="config">
+    <div class="card">
+        <div class="card-header bg-dark">
+            <h1 class="text-white text-center">
+                Configuraciones
+            </h1>
+        </div>
+        <div class="card-body">
+            <h3>Sitio Web y Mercado Pago</h3>
+            <form [formGroup]="configForm" novalidate (ngSubmit)='onSaveConfig($event)'>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="emailEmpresa">Email Empresa</label>
+                        <input type="email" class="form-control" id="emailEmpresa" placeholder="empresa@email.com" formControlName="emailEmpresa">
+                      </div>
                 </div>
-                <div class="form-group col-md-6">
-                    <label for="">Longitud</label>
-                    <input type="text" class="form-control">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="latitud">Latitud</label>
+                        <input type="number" class="form-control" id="latitud" placeholder="-32.12345" formControlName="lat">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="longitud">Longitud</label>
+                        <input type="number" class="form-control" id="longitud" placeholder="32.12345" formControlName="lng">
+                    </div>
                 </div>
-            </div>
-            <button class="btn btn-success btn-save mx-auto d-block">Guardar</button>
-        </form>
-        
-    </div>
-</div>
-<div class="main-section mt-5">
-    <span class="main-section-title">MercadoPago</span>
-    <div class="form-group col-md-8 mx-auto">
-        <label for="">Token: </label>
-        <input type="text" class="form-control">
-    </div>
-    <button class="btn btn-success btn-save mx-auto d-block">Guardar</button>
-</div>
-<div class="main-section mt-5">
-    <span class="main-section-title">Registro de Personal</span>
-    <div class="form-row">
-        <div class="form-group col-md-4">
-            <label for="">Email</label>
-            <input type="email" class="form-control">
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="mdoPagoToken">Mercado Pago Token</label>
+                        <input type="text" class="form-control" id="mdoPagoToken" placeholder="TEST-12h69s45g4sdhjkjsn84vpxtysh4" formControlName="tokenMercadoPago">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <button class="btn btn-primary">Actualizar</button>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="form-group col-md-4">
-            <label for="">Contraseña</label>
-            <input type="password" class="form-control">
+        <hr>
+        <div class="card-body">
+            <h3>Registro de Empleados</h3>
+            <form [formGroup]="registerForm" novalidate (ngSubmit)='onRegisterUser($event)'>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" formControlName="email" [class]="isValidField('email')" placeholder="empleado@empleado.com">
+                        <div class="invalid-feedback">
+                            <span *ngIf="registerForm.get('email').errors?.pattern">
+                                Introduzca un email válido
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="password">Contraseña</label>
+                        <input type="password" class="form-control" formControlName="password"  [class]="isValidField('password')" placeholder="contraseña">
+                        <div class="invalid-feedback">
+                            <span *ngIf="registerForm.get('password').errors?.required">
+                                Completa este campo
+                            </span>
+                            <span *ngIf="registerForm.get('password').errors?.minlength">
+                                La contraseña debe tener {{registerForm.get("password").errors?.minlength?.requiredLength}} carácteres como mínimo.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" class="form-control" formControlName="nombre" [class]="isValidField('nombre')" placeholder="Username">
+                        <div class="invalid-feedback">
+                            <span *ngIf="registerForm.get('nombre').errors?.required">
+                                Completa este campo
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="rol">Rol</label>
+                        <select id="rol" class="form-control" formControlName="rol" name="rol">
+                            <option [value]="rolItem" *ngFor="let rolItem of rolesArray">{{rolItem}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <button type="submit" class="btn btn-info" [disabled]="registerForm.invalid">Registrar</button>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="form-group col-md-4">
-            <label for="">Rol</label>
-            <select name="" id="" class="form-control">
-                <option *ngFor="let rol of ROLES" [value]="rol" >{{rol}}</option>
-            </select>
-        </div>
-        <button class="btn btn-save btn-info mx-auto d-block">Registrar</button>
-    
     </div>
-    
-</div>
+</section>

@@ -1,14 +1,31 @@
-<section id="menu" class="pb-5">
-    <div class="container pt-5 ">
-        <div class="row text-center menu-op mx-auto">
-            <button [routerLink]="['/admin/pedidos/nuevos']" class="admin btn btn-danger col-sm-12 col-md-4 col-xl-4 opciones text-center align-self-start h-md-100"><i class="fas fa-user-cog"></i><br><p>Administracion</p></button>
-            <button [routerLink]="['/cocina']" class="cocina btn btn-info col-sm-12 col-md-4 col-xl-4 opciones text-center align-self-sm-start align-self-xl-end h-md-100"><i class="fas fa-pizza-slice"></i> <i class="fas fa-hamburger"></i><br><p>Cocina</p></button>
-            <button [routerLink]="['/delivery']" class="delivery btn btn-success col-sm-12 col-md-4 col-xl-4 opciones text-center align-self-start h-md-100"><i class="fas fa-motorcycle"></i><br><p>Delivery</p></button>
-            <i class="fas fa-cog d-none d-sm-none d-xl-block" id="icono-settings"></i>   
+<section id="menu" class="container">
+    <div class="row">
+        <div class="col-6">
+            <button [routerLink]="['/admin/pedidos/cajero']" class="btn btn-danger" id="admin">
+                <i class="fas fa-user-cog"></i><br><p>Administracion</p>
+            </button>
         </div>
-        
-        
-        
-
+        <div class="col-6">
+            <button routerLink="/cajero" class="btn btn-secondary" id="cajero">
+                <i class="fas fa-cash-register"></i><br><p>Cajero</p>
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <i class="fas fa-cog" id="icono-settings"></i> 
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <button [routerLink]="['/cocina']" class="btn btn-info" id="cocina">
+                <i class="fas fa-pizza-slice mr-1"></i><i class="fas fa-hamburger"></i><br><p>Cocina</p>
+            </button>
+        </div>
+        <div class="col-6">
+            <button [routerLink]="['/delivery']" class="btn btn-success" id="delivery">
+                <i class="fas fa-motorcycle"></i><br><p>Delivery</p>
+            </button>
+        </div>
     </div>
 </section>

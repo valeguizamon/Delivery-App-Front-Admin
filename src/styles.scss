@@ -1,0 +1,28 @@
+$toast-font-color: #f8f9fa;
+
+.success-toast {
+    background-color: #28a745;
+    color: $toast-font-color;
+}
+
+.error-toast {
+    background-color: #dc3545;
+    color: $toast-font-color;
+}
+
+.warning-toast {
+    background-color: #ffc107;
+    color: $toast-font-color;
+}
+
+.info-toast {
+    background-color: #343a40;
+    color: $toast-font-color;
+}
+
+.user-toast {
+    box-sizing: border-box;
+    border: 0.5px solid #FFD700;
+    background-color: #343a40;
+    color: $toast-font-color;
+}

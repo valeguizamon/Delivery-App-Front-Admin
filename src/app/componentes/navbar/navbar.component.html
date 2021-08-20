@@ -1,15 +1,12 @@
-<nav class="navbar navbar-expand-sm navbar-dark bg-dark text-white ">
-    <a *ngIf="isLogged == true;else notLogged" routerLink="/panel" class="nav-link"><span class="ml-1 text-white"><i class="fas fa-utensils"></i> El Buen Sabor</span></a>
-    <ng-template #notLogged>
-        <a  class="nav-link" ><span class="ml-1 text-white"><i class="fas fa-utensils"></i> El Buen Sabor</span></a>
-    </ng-template>
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <a [routerLink]="[dynRoute]" class="navbar-brand">
+        <span class="ml-1"><i class="fas fa-utensils"></i> El Buen Sabor</span>
+    </a>
     <ul class="navbar-nav ml-auto">
         <li class="nav-item" *ngIf="isLogged">
-            <a href="#" class="nav-link text-white" (click)="logOut()">
-                <i class="fas fa-user-times"></i> Salir
-            </a>
+            <button class="btn btn-outline-light" (click)="logOut()">
+                <i class="fas fa-user-times mr-2"></i> Cerrar Sesión
+            </button>
         </li>
     </ul>
-
-
 </nav>

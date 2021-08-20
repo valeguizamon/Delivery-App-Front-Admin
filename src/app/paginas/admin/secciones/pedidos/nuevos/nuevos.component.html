@@ -1,8 +1,9 @@
 <div class="text-info mt-5 mx-5 d-flex justify-content-between">
-    <h2>Nuevos</h2>
+    <h1>Nuevos</h1>
     <button class="btn btn-secondary" (click)="refresh()" title="Actualizar"><i class="fas fa-sync-alt"></i></button>
 
 </div>
+<hr>
 <div class="accordion" id="accordionExample" *ngIf="pedidos.length>0;else noPedidos">
     <div class=" item mx-5 my-3 bg-dark rounded-lg" *ngFor="let pedido of pedidos;index as ind">
       <div class=" item-button d-flex  align-items-center text-white " [attr.id]="'heading'+ind" data-toggle="collapse" [attr.data-target]="'#collapse'+ind" aria-expanded="false" aria-controls="collapseOne" >

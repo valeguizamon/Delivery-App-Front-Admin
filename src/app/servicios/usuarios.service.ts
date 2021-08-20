@@ -16,6 +16,7 @@ export class UsuariosService {
   private users: Observable<User[]>;
   private userDoc: AngularFirestoreDocument<User>;
   private user: Observable<User>;
+
   constructor(private afs: AngularFirestore) {
     this.userCollection = this.afs.collection('clients');
     this.users = this.userCollection.valueChanges();
@@ -42,5 +43,12 @@ export class UsuariosService {
         user.telefono?.toString().includes(textSearch) ||
         user.domicilio?.calle.toLowerCase().includes(textSearch)
     );
+  }
+
+  // rol , firebase unique ID
+  changeUserRol(rol: String, fuid: String) {
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`clients/${fuid}`);
+    const data: any = { role: rol };
+    userRef.update(data);
   }
 }

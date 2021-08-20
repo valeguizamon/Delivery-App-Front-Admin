@@ -10,8 +10,8 @@ import {MatTableDataSource} from '@angular/material/table';
 })
 export class UsuariosComponent implements OnInit {
 
-  displayedColumns: string [] = ['#','Username','Email','DNI','Telefono','Fecha Nac.','Sexo','Domicilio']
-  pageSizeOptions = [2,4,6]
+  displayedColumns: string [] = ['#','Username','Email','Telefono','Domicilio', 'Acciones'];
+  pageSizeOptions = [2,4,6];
   dataSource = new MatTableDataSource<User>();
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
 
@@ -21,14 +21,21 @@ export class UsuariosComponent implements OnInit {
   public totalCount = 0;
   public pageCount = 5;
   public currentPage = 0;
+
+  public userProp = {}; //Solo para pasar info al modal
+
+
   constructor(private userService: UsuariosService) { }
   
   ngOnInit(): void {
     this.getUsers()
   }
+
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
+
+
   getUsers(){
     this.userService.getAllUsers().subscribe((users)=>{
       this.users= users
@@ -48,5 +55,11 @@ export class UsuariosComponent implements OnInit {
     } else {
       this.dataSource.data = this.users
     }
+  }
+
+  editUser(e:Event, user: any): void{
+    e.preventDefault();
+    this.userProp = user;
+    // e.stopPropagation();
   }
 }

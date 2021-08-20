@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService} from "../../servicios/auth.service"
-import { Router} from "@angular/router"
+import { AuthService } from "../../servicios/auth.service";
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -8,7 +8,11 @@ import { Router} from "@angular/router"
 })
 export class NavbarComponent implements OnInit {
   public isLogged:boolean = false;
-  constructor(private authService : AuthService, private router: Router) { }
+  public dynRoute: string; //Dynamic route param
+
+
+  constructor(private authService : AuthService) { }
+
 
   ngOnInit(): void {
     this.getCurrentUser();
@@ -18,19 +22,15 @@ export class NavbarComponent implements OnInit {
     this.authService.isAuth().subscribe(auth =>{
       if(auth){
         this.isLogged= true;
-        console.log("user logged")
-      }else{
-        console.log("user not logged")
+        this.dynRoute = "panel"
+      } else {
+        this.dynRoute = "home";
+        this.isLogged = false;
       }
     })
   }
 
   logOut(){
-    console.log("saliendo")
-    this.authService.logOut()
-    this.router.navigate(['/home'])
-
+    this.authService.logOut();
   }
-
-
 }

@@ -11,11 +11,12 @@ import { FormsModule } from '@angular/forms';
 import { ModalDetalleComponent } from './modales/modal-detalle/modal-detalle.component';
 import { ModalcancelComponent } from './modales/modalcancel/modalcancel.component';
 import { DeliveryComponent } from './delivery/delivery.component';
+import { CajeroComponent } from './cajero/cajero.component';
 
 
 
 @NgModule({
-  declarations: [PedidosComponent, NuevosComponent,CocinaComponent,HistorialComponent, GeneradorComponent, ModalDetalleComponent, ModalcancelComponent, DeliveryComponent],
+  declarations: [PedidosComponent, NuevosComponent,CocinaComponent,HistorialComponent, GeneradorComponent, ModalDetalleComponent, ModalcancelComponent, DeliveryComponent, CajeroComponent],
   imports: [
     
     CommonModule,

@@ -1,8 +1,13 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { InsumoService } from 'src/app/servicios/insumos.service';
-import { NgForm } from '@angular/forms';
-import { Insumo } from 'src/app/models/Insumo';
+
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 import { AngularFireStorage } from '@angular/fire/storage';
+
+import { Insumo } from 'src/app/models/Insumo';
+
+
 @Component({
   selector: 'app-insumos',
   templateUrl: './insumos.component.html',
@@ -19,7 +24,8 @@ export class InsumosComponent implements OnInit {
 
   constructor(
     public servicio: InsumoService,
-    private storage: AngularFireStorage
+    private storage: AngularFireStorage,
+    private matSnackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -74,7 +80,7 @@ export class InsumosComponent implements OnInit {
   preUpdateInsumo(insumo: Insumo) {
     this.servicio.selected = insumo;
     this.urlPreview = this.servicio.selected.img;
-    console.log(this.servicio.selected);
+    // console.log(this.servicio.selected);
   }
 
   //-----------------------GUARDAR-----------------------//
@@ -83,7 +89,7 @@ export class InsumosComponent implements OnInit {
     if (this.servicio.selected.esInsumo == false) {
       if (this.imgFile) {
         this.servicio.selected.img = await this.saveImage();
-        console.log('img', this.servicio.selected.img);
+        // console.log('img', this.servicio.selected.img);
       } else if (!this.servicio.selected.img) {
         if (
           confirm(
@@ -99,10 +105,25 @@ export class InsumosComponent implements OnInit {
 
     //nuevo articulo
     if (!this.servicio.selected._id) {
-      console.log('nuevo', this.servicio.selected);
-      this.servicio.post(this.servicio.selected).subscribe(
-        () => alert('Articulo guardado con éxito'),
-        (err) => console.log('Error', err)
+      // console.log('nuevo', this.servicio.selected);
+      this.servicio.post(this.servicio.selected).subscribe( 
+        resp => {
+          this.matSnackBar.open('Creado con exito', "Accept" , {
+            duration: 5000,
+            horizontalPosition: 'right',
+            verticalPosition: 'bottom',
+            panelClass: 'btn-success'
+          });
+        },
+        error => { 
+          console.log('Error : ', error);
+          this.matSnackBar.open('Error al crear', "Accept" ,{
+            duration: 5000,
+            horizontalPosition: 'right',
+            verticalPosition: 'bottom',
+            panelClass: 'btn-danger'
+          });
+        }
       );
     }
     //editar articulo
@@ -110,8 +131,23 @@ export class InsumosComponent implements OnInit {
       this.servicio
         .put(this.servicio.selected._id, this.servicio.selected)
         .subscribe(
-          () => alert('Editado con exito'),
-          (err) => console.log('Error', err)
+          resp => {
+            this.matSnackBar.open('Actualizado con exito', "Accept" , {
+              duration: 5000,
+              horizontalPosition: 'right',
+              verticalPosition: 'bottom',
+              panelClass: 'btn-success'
+            });
+          },
+          error => { 
+            console.log('Error : ', error);
+            this.matSnackBar.open('Error al actualizar', "Accept" ,{
+              duration: 5000,
+              horizontalPosition: 'right',
+              verticalPosition: 'bottom',
+              panelClass: 'btn-danger'
+            });
+          }
         );
     }
     this.resetForm();
@@ -125,7 +161,13 @@ export class InsumosComponent implements OnInit {
       '¿Está seguro que desea eliminar este artículo?'
     );
     if (confirmacion) {
-      this.servicio.delete(id).subscribe(() => {
+      this.servicio.delete(id).subscribe( resp => {
+        this.matSnackBar.open('Eliminado con exito', "Accept" , {
+          duration: 5000,
+          horizontalPosition: 'right',
+          verticalPosition: 'bottom',
+          panelClass: 'btn-success'
+        });
         this.servicio.setNull();
         this.getAll();
       });
