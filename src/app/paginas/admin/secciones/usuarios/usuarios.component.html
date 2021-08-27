@@ -27,20 +27,20 @@
           <th mat-header-cell *matHeaderCellDef>Email</th>
           <td mat-cell *matCellDef="let user">{{ user.email }}</td>
         </ng-container>
-        <ng-container matColumnDef="Telefono">
-          <th mat-header-cell *matHeaderCellDef>Telefono</th>
-          <td mat-cell *matCellDef="let user">
-            {{ user.telefono ? user.telefono : "Sin Datos" }}
-          </td>
+        <ng-container matColumnDef="Rol">
+          <th mat-header-cell *matHeaderCellDef>Rol</th>
+          <td mat-cell *matCellDef="let user">{{ user.role | uppercase}}</td>
         </ng-container>
-        <ng-container matColumnDef="Domicilio">
-          <th mat-header-cell *matHeaderCellDef>Domicilio</th>
+        <ng-container matColumnDef="Status">
+          <th mat-header-cell *matHeaderCellDef>Status</th>
           <td mat-cell *matCellDef="let user">
-            {{
-              user.domicilio
-                ? user.domicilio.calle + " " + user.domicilio.numero
-                : "Sin Datos"
-            }}
+            <ng-container *ngIf="user.online; else offline">
+              <span class="text-success">conectado</span>
+            </ng-container>
+            <ng-template #offline>
+              <span class="text-danger">desconectado</span>
+            </ng-template>
+            
           </td>
         </ng-container>
         <ng-container matColumnDef="Acciones">

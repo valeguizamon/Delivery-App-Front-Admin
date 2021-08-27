@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { Subscription } from 'rxjs';
+
 import { AuthService } from "../../servicios/auth.service";
+
 
 @Component({
   selector: 'app-navbar',
@@ -7,30 +12,38 @@ import { AuthService } from "../../servicios/auth.service";
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  public isLogged:boolean = false;
-  public dynRoute: string; //Dynamic route param
+  public isLogged: boolean = false;
+  public dynRoute: string = "home"; //Dynamic route param
+  public email: string = "";
+  private authSuscription: Subscription;
 
-
-  constructor(private authService : AuthService) { }
+  constructor(private authService : AuthService, private router: Router) { }
 
 
   ngOnInit(): void {
-    this.getCurrentUser();
+    this.getAuth();
   }
 
-  getCurrentUser(){
-    this.authService.isAuth().subscribe(auth =>{
-      if(auth){
-        this.isLogged= true;
-        this.dynRoute = "panel"
-      } else {
-        this.dynRoute = "home";
-        this.isLogged = false;
-      }
-    })
+  private getAuth(): void {
+    this.authService.isAuth().subscribe(
+      auth => {
+        if(auth) {
+          this.dynRoute = "panel";
+          this.isLogged = true;
+          this.email = auth.email;
+        } else {
+          this.dynRoute = "home";
+          this.isLogged = false;
+        }
+      },
+      error => console.error(error)
+    );
   }
 
-  logOut(){
+  public logOut(e: Event){
+    e.preventDefault();
     this.authService.logOut();
+    this.getAuth();
+    this.router.navigate(['/home']);
   }
 }

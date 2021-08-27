@@ -1,6 +1,10 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { RubroService} from "src/app/servicios/rubros.service";
-import { NgForm} from "@angular/forms"
+import { NgForm } from "@angular/forms";
+
+import { RubroService } from "src/app/servicios/rubros.service";
+import { ToastService } from "src/app/servicios/toast.service";
+
+
 @Component({
   selector: 'app-modalrubrogen',
   templateUrl: './modalrubrogen.component.html',
@@ -11,7 +15,7 @@ export class ModalrubrogenComponent implements OnInit {
   actualizar = new EventEmitter<string>()
   @ViewChild('btnClose') btnClose: ElementRef;
   
-  constructor(public servicio: RubroService) { }
+  constructor(public servicio: RubroService, private toast: ToastService) { }
 
   ngOnInit(): void {
   }
@@ -21,14 +25,14 @@ export class ModalrubrogenComponent implements OnInit {
     //nuevo rubro
     if(rubroForm.value.id == null){
       this.servicio.post(rubroForm.value).subscribe(()=>{
-        alert("Rubro guardado exitosamente");
+        this.toast.display("Rubro creado","success", 'OK');
       })
       
     }
     //editar rubro
     else{
       this.servicio.put(rubroForm.value.id,rubroForm.value).subscribe(() =>{
-        alert("Editado correctamente")
+        this.toast.display("Rubro actualizado","success", 'OK');
       });
     }
     rubroForm.resetForm();

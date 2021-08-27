@@ -30,7 +30,7 @@ export class ModalcancelComponent implements OnInit {
   cancelPedido() {
     this.servicio.cancelPedido(this.idCancel, {"motivo":this.motivoCancel}).subscribe(
       (res) => {
-        console.log('respuesta', res);
+        // console.log('respuesta', res);
         this.resetText();
         this.btnClose.nativeElement.click();
         this.onRefresh();

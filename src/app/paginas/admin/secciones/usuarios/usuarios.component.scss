@@ -13,6 +13,11 @@ table {
     color: #444444;
     font-weight: 400;
 }
+tr {
+    button.btn.btn-warning{
+        width: 80px;
+    }
+}
 tr.mat-row:hover{
     background-color: rgba(204,204,204,0.3) !important;
 }

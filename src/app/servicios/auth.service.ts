@@ -3,12 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { Router} from "@angular/router";
 
 import { AngularFireAuth } from '@angular/fire/auth';
-import {
-  AngularFirestore,
-  AngularFirestoreDocument,
-} from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreDocument, } from '@angular/fire/firestore';
+import firebase from 'firebase/app';
 
-import { BehaviorSubject, of, Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { first, map, switchMap, take} from 'rxjs/operators';
 
 import { ToastService } from "./toast.service";
@@ -30,53 +28,30 @@ export class AuthService {
   ) {}
 
 
-  public currentUser: any;
-  public userStatus: string = "";
-  public userStatusChanges: BehaviorSubject<string> = new BehaviorSubject<string>(this.userStatus);
+  // public currentUser: any;
+  // public userStatus: string = "";
+  // public userStatusChanges: BehaviorSubject<string> = new BehaviorSubject<string>(this.userStatus);
 
-  setUserStatus(userStatus: any): void {
-    this.userStatus = userStatus;
-    this.userStatusChanges.next(userStatus)
-  }
+  // setUserStatus(userStatus: any): void {
+  //   this.userStatus = userStatus;
+  //   this.userStatusChanges.next(userStatus)
+  // }
   
   //saber si esta logueado
-  isAuth() {
+  isAuth(): Observable<any>{
     return this.afsAuth.authState.pipe(map((auth) => auth));
   }
 
   //loguear con email y contraseña
   async loginEmailUser(email: string, password: string) {
     try {
+      // Auth por sesiones
+      firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION);
       const { user } = await this.afsAuth.signInWithEmailAndPassword(email, password);
-      const userData = this.afsAuth.authState.pipe(
-        switchMap((data)=>{
-          if(data){
-            return this.afs.doc<User>(`/clients/${user.uid}`).valueChanges().pipe(take(1));
-          }
-          return of(null)
-        })
-      );
+      this.setStatus(true);
+      let rol = (await this.getUser()).role;
       this.toast.display(`Bienvenido  ${user.email}`,"user");
-
-      userData.subscribe( user => {
-        switch (user.role) {
-          case ROLES.Admin:
-            this.router.navigate(['/admin/pedidos/cajero']);
-            break;
-          case ROLES.Cajero:
-            this.router.navigate(['/cajero']);
-            break;
-          case ROLES.Cocinero:
-            this.router.navigate(['/cocina']);
-            break;
-          case ROLES.Delivery:
-            this.router.navigate(['/delivery']);
-            break;
-          default:
-            window.location.href = "http://localhost:4200/inicio";
-            break;
-        }
-      });
+      this.loginRedirect(rol);
     } catch (error) {
       this.toast.display("Error al iniciar sesión","error");
     }
@@ -90,12 +65,16 @@ export class AuthService {
   }
 
   //salir de la sesion
-  logOut() {
-    this.afsAuth.signOut();
-    window.location.href = "http://localhost:5200/home";
+  async logOut() {
+    this.setStatus(false);
+    try {
+      await this.afsAuth.signOut();
+    } catch (error) {
+      console.error('AUTH : SVC ', error)
+    }
   }
 
-  async getUser() {
+  public async getUser(){
     let uid = await (await this.isAuth().pipe(first()).toPromise()).uid
     let user = this.afs.doc<User>(`clients/${uid}`);
     let data  = user.snapshotChanges().pipe(
@@ -112,19 +91,38 @@ export class AuthService {
     return data.pipe(first()).toPromise();
   }
 
+  //Cambia el estado de un usuario entre online y offline
+  private setStatus(online: boolean): void{
+    this.isAuth().subscribe(
+      user => {
+        if( user ){
+          const userRef: AngularFirestoreDocument<User> = this.afs.doc(`clients/${user.uid}`);
+          const data: any = { online };
+          userRef.update(data);
+        }
+      },
+      e => console.error(e)
+    );
+  }
 
-  // private async updateUserData(uid: string, user) {
-  //   const userRef: AngularFirestoreDocument<any> = this.afs.doc(
-  //     `clients/${uid}`
-  //   );
-  //   const data: User = {
-  //     uid,
-  //     email: user.email,
-  //     estado: 1,
-  //     online: false,
-  //     nombre: user.nombre,
-  //     role: user.rol
-  //   };
-  //   return userRef.set(data, { merge: true });
-  // }
+  private loginRedirect(role: string): void {
+    switch (role) {
+      case ROLES.Admin:
+        this.router.navigate(['/admin/pedidos/cajero']);
+        break;
+      case ROLES.Cajero:
+        this.router.navigate(['/cajero']);
+        break;
+      case ROLES.Cocinero:
+        this.router.navigate(['/cocina']);
+        break;
+      case ROLES.Delivery:
+        this.router.navigate(['/delivery']);
+        break;
+      default:
+        this.logOut();
+        window.location.href = "http://localhost:4200/inicio";
+        break;
+    }
+  }
 }

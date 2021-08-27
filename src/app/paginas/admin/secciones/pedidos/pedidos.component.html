@@ -1,31 +1,28 @@
 <div class="container-fuild">
     <div class="row no-gutters">
         <nav class="col-md-2 sidebar-sticky">
-                <ul class="nav flex-column bg-dark text-white d-flex justify-content-center">
-                    <li class="nav-item text-center pt-3" [routerLink]="['/admin/pedidos/cajero']">
-                        <i class="fas fa-concierge-bell"></i>
-                        <h4 class="text-center mt-2">Cajero</h4>
-                    </li>
-                   
-                    <li class="nav-item text-center pt-3" [routerLink]="['/admin/pedidos/cocina']">
-                        <i class="fas fa-bread-slice"></i>
-                        <h4 class="text-center mt-2">Cocina</h4>
-                    </li>
-                    <li class="nav-item text-center pt-3" [routerLink]="['/admin/pedidos/delivery']">
-                        <i class="fas fa-motorcycle"></i>
-                        <h4 class="text-center mt-2">Delivery</h4>
-                    </li>
-                    <li class="nav-item text-center pt-3" [routerLink]="['/admin/pedidos/historial']">
-                        <i class="far fa-clipboard"></i>
-                        
-                        <h4 class="text-center mt-2">Historial</h4>
-                    </li>
-                    <li class="nav-item text-center pt-3" [routerLink]="['/admin/pedidos/generador']">
-                        <i class="fas fa-external-link-square-alt"></i>
-                        
-                        <h4 class="text-center mt-2">Generador</h4>
-                    </li>
-                </ul>
+            <ul class="nav flex-column bg-dark text-white d-flex justify-content-center">
+                <li class="nav-item text-center pt-3" [routerLink]="['/admin/pedidos/cajero']">
+                    <i class="fas fa-concierge-bell"></i>
+                    <h4 class="text-center mt-2">Cajero</h4>
+                </li>
+                <li class="nav-item text-center pt-3" [routerLink]="['/admin/pedidos/cocina']">
+                    <i class="fas fa-bread-slice"></i>
+                    <h4 class="text-center mt-2">Cocina</h4>
+                </li>
+                <li class="nav-item text-center pt-3" [routerLink]="['/admin/pedidos/delivery']">
+                    <i class="fas fa-motorcycle"></i>
+                    <h4 class="text-center mt-2">Delivery</h4>
+                </li>
+                <li class="nav-item text-center pt-3" [routerLink]="['/admin/pedidos/historial']">
+                    <i class="far fa-clipboard"></i>
+                    <h4 class="text-center mt-2">Historial</h4>
+                </li>
+                <li class="nav-item text-center pt-3" [routerLink]="['/admin/pedidos/generador']">
+                    <i class="fas fa-external-link-square-alt"></i>
+                    <h4 class="text-center mt-2">Generador</h4>
+                </li>
+            </ul>
         </nav>
         <div class="col-md-10" id="panel">
             <router-outlet></router-outlet>

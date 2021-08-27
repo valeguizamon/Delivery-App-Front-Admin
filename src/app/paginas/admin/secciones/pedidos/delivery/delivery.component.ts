@@ -13,18 +13,20 @@ import State from 'src/app/models/statePedido'
 })
 export class DeliveryComponent implements OnInit {
   
-  public idCancel= ""
-  public motivoCancel = ""
-  public pedidos= []
+  public idCancel= "";
+  public motivoCancel = "";
+  public pedidos= [];
+
+
   constructor(public servicio: PedidosService, private toast: ToastService) { }
 
   ngOnInit(): void {
     this.getDonePedidos()
   }
 
+
   //-------------------------DATOS DE API---------------//
   getDonePedidos(){
-    this.toast.display("Cargando pedidos . . .","info");
     this.servicio.getPedidosByState(State.LISTO).subscribe(data =>{
       this.pedidos = data.filter( pedido => pedido.envio === "Envio a domicilio");
     });
@@ -32,7 +34,7 @@ export class DeliveryComponent implements OnInit {
 
   refresh(){
     // console.log("actualizando")
-    this.getDonePedidos()
+    this.getDonePedidos();
   }
 
   // preUpdateCancel(id){
@@ -42,24 +44,23 @@ export class DeliveryComponent implements OnInit {
   markAsDelivered(id){
     this.servicio.acceptPedido(id,{"status":State.LISTO}).subscribe(
       (res)=>{
-        // console.log("respuesta",res)
-        this.toast.display("Pedido entregado al cliente","success");
-        this.getDonePedidos()
+        this.toast.display(res.message,res.status);
+        this.getDonePedidos();
       },
       (err)=> { 
         console.log("Error : ", err); 
         this.toast.display("Error al entregar el pedido","error");
       }
-    )
+    );
   }
 
   // cancelPedido(id){
   //   this.servicio.cancelPedido(id,{"motivo":this.motivoCancel}).subscribe(
   //     (res) => {
   //       console.log("respuesta",res)
-  //       this.getDonePedidos()
+  //       this.getDonePedidos();
   //     },
   //     (err) => console.log("Error",err)
-  //   )
+  //   );
   // }
 }

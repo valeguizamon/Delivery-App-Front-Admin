@@ -28,8 +28,6 @@ export class CajeroComponent implements OnInit {
 
   //Cargar los pedidos nuevos
   getPedidos(){
-    this.toast.display("Cargando pedidos . . .","info");
-
     this.servicio.getPedidosByState(State.ESPERA).subscribe(data=>{
       this.nuevosPedidos = data;
     });
@@ -48,7 +46,7 @@ export class CajeroComponent implements OnInit {
   acceptPedido(id){
     this.servicio.acceptPedido(id,{"status": State.ESPERA}).subscribe(
       (res) => {
-        this.toast.display("Pedido enviado a cocina","success", 'OK');
+        this.toast.display(res.message, res.status, 'OK');
         this.getPedidos();
       },
       (err) => { 
@@ -60,8 +58,8 @@ export class CajeroComponent implements OnInit {
 
   facturarPedido(id) {
     this.servicio.acceptPedido(id,{"status": State.ENTREGADO}).subscribe(
-      (res)=>{
-        this.toast.display("Pedido Facturado","success", 'OK');
+      (res)=> {
+        this.toast.display(res.message, res.status, 'OK');
         this.getPedidos();
       },
       (err)=> { 
@@ -78,14 +76,13 @@ export class CajeroComponent implements OnInit {
   cancelPedido(id){
     this.servicio.cancelPedido(id,{"motivo": this.motivoCancel}).subscribe(
       (res) => {
-        // console.log("Cancelado", res);
-        this.toast.display("Pedido cancelado ","error", "OK");
+        this.toast.display(res.message,"error", "OK");
         this.getPedidos();
       },
       (err) => { 
         console.log("Error : ",err); 
         this.toast.display("Error al canelar el pedido","error");
       }
-    )
+    );
   }
 }

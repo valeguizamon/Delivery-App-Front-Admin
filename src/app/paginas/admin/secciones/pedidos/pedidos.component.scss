@@ -1,22 +1,26 @@
+.nav {
+    .nav-item{
+        box-sizing: border-box;
+        height: 150px;
+        width: 100%;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
 
-.nav-item{
-    height: 130px;
-    width: 100%;
-    cursor: pointer;
-    display: block;
-}
+        i {
+            font-size: 3rem
+        }
 
-.nav-item:hover{
-    background-color: #444A5C;
-    border-left: solid 1px blue;
-    
-}
-
-.nav-item i {
-    font-size:50px
+        &:hover{
+            background-color: #444A5C;
+            border-left: solid 2px #17a2b8;   
+        }
+    }
 }
 
 
 #panel{
     background-color: #444A5C;
+    // border: 1px solid red;
 }

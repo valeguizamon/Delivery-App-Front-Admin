@@ -1,11 +1,11 @@
 <div class="modal fade" id="modalRubroGen" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <h5 class="bg-info text-white text-center">Rubros Generales</h5>
+            <h2 class="bg-info text-white text-center">Rubros Generales</h2>
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
+                <h4 class="modal-title" id="exampleModalLabel">
                     {{!this.servicio.selectedRubro._id?'Nuevo Rubro':'Modificar Rubro'}}
-                </h5>
+                </h4>
                 <button #btnClose type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="resetForm()">
                     <span aria-hidden="true">&times;</span>
                 </button>

@@ -16,29 +16,27 @@ export class CocinaComponent implements OnInit {
   constructor(public servicio: PedidosService, private toast: ToastService) { }
 
   ngOnInit(): void {
-    this.getPedidos()
+    this.getPedidos();
   }
 //-------------------------DATOS DE API---------------//
   
   //Cargar los pedidos nuevos
   getPedidos(){
-    this.toast.display("Cargando pedidos . . .","info");
-    this.servicio.getPedidosByState(State.COCINA).subscribe(data=>{
+    this.servicio.getPedidosByState(State.COCINA).subscribe( data => {
       this.pedidos = data;
-    })
+    });
   }
   //-----------------------------------------------------
   //Actualizar el panel de los pedidos
   refresh(){
-    console.log("actualizando")
     this.getPedidos()
   }
   //Demorar el pedido 10"
   demorarPedido(id){
     this.servicio.demorarPedido(id).subscribe(
       (res)=>{
-        this.toast.display( res,"error", "OK");
-        this.getPedidos()
+        this.toast.display( res.message,"error", "OK");
+        this.getPedidos();
       },
       (err)=> { 
         console.log("Error : ",err); 
@@ -49,11 +47,11 @@ export class CocinaComponent implements OnInit {
   //Aceptar el pedido
   acceptPedido(id){
     this.servicio.acceptPedido(id,{"status":State.COCINA}).subscribe(
-      (res)=>{
-        this.toast.display("Pedido listo para entregar","success", 'OK');
-        this.getPedidos()
+      (res) => {
+        this.toast.display(res.message,res.status, 'OK');
+        this.getPedidos();
       },
-      (err)=> { 
+      (err) => { 
         console.log("Error : ", err); 
         this.toast.display("Error al terminar el pedido","error");
       }

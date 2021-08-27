@@ -1,4 +1,5 @@
 export class RubroArt {
-    _id:string;
+    _id: string;
     denominacion: string;
+    RubArtPadre?: any;
 }
